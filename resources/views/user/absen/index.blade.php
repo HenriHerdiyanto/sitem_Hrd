@@ -20,7 +20,10 @@
         $modalTarget = '#tidak';
     }
 
-    $cekKoneksiStatus = $clientIP === $allowedIP ? 'Anda sudah terhubung dengan alamat IP yang diizinkan.' : 'Anda belum terhubung dengan alamat IP yang diizinkan.';
+    $cekKoneksiStatus =
+        $clientIP === $allowedIP
+            ? 'Anda sudah terhubung dengan alamat IP yang diizinkan.'
+            : 'Anda belum terhubung dengan alamat IP yang diizinkan.';
 @endphp
 
 
@@ -160,28 +163,29 @@
                                 <!-- Modal Body -->
                                 {{-- <form action="" method="post"> --}}
                                 @if ($lastAbsen)
-                                <form action="{{ route('UserAbsen.update', $lastAbsen->id) }}" method="post">
-                                    @csrf
-                                    @method('put')
-                                    <div class="modal-body bg-secondary">
-                                        <div class="mb-3">
-                                            <label for="" class="text-white">Nama Karyawan</label>
-                                            <input type="text" name="name" class="form-control"
-                                                value="{{ $lastAbsen->name ?? '' }}" readonly>
+                                    <form action="{{ route('UserAbsen.update', $lastAbsen->id) }}" method="post">
+                                        @csrf
+                                        @method('put')
+                                        <div class="modal-body bg-secondary">
+                                            <div class="mb-3">
+                                                <label for="" class="text-white">Nama Karyawan</label>
+                                                <input type="text" name="name" class="form-control"
+                                                    value="{{ $lastAbsen->name ?? '' }}" readonly>
+                                            </div>
+                                            <div class="mb-3">
+                                                <label for="" class="text-white">Waktu Sekarang</label>
+                                                <input type="text" class="form-control" name="waktu_sekarang"
+                                                    id="waktu_keluar" readonly
+                                                    value="{{ $lastAbsen->waktu_keluar ?? '' }}">
+                                            </div>
                                         </div>
-                                        <div class="mb-3">
-                                            <label for="" class="text-white">Waktu Sekarang</label>
-                                            <input type="text" class="form-control" name="waktu_sekarang"
-                                                id="waktu_keluar" readonly value="{{ $lastAbsen->waktu_keluar ?? '' }}">
+                                        <div class="modal-footer">
+                                            <button type="button" class="btn btn-secondary"
+                                                data-dismiss="modal">Close</button>
+                                            <button type="submit" class="btn btn-success"
+                                                id="alert_demo_3_3">Submit</button>
                                         </div>
-                                    </div>
-                                    <div class="modal-footer">
-                                        <button type="button" class="btn btn-secondary"
-                                            data-dismiss="modal">Close</button>
-                                        <button type="submit" class="btn btn-success"
-                                            id="alert_demo_3_3">Submit</button>
-                                    </div>
-                                </form>
+                                    </form>
                                 @else
                                     <p>Data tidak ditemukan.</p>
                                 @endif

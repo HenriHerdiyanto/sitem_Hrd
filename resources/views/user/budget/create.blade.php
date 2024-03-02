@@ -31,9 +31,12 @@
                                                 </div>
                                                 <div class="form-group">
                                                     <label for="largeInput">Divisi</label>
-                                                    <input type="hidden" name="divisi_id" value="{{ $users->divisi ? $users->divisi->id : '' }}">
-                                                    <input type="text" name="" class="form-control" value="{{ $users->divisi ? $users->divisi->nama_divisi : 'TIDAK BOLEH INPUT, DIVISI ANDA TELAH DIHAPUS SEGERA HUBUNGI ADMIN' }}" readonly>
-                                                    
+                                                    <input type="hidden" name="divisi_id"
+                                                        value="{{ $users->divisi ? $users->divisi->id : '' }}">
+                                                    <input type="text" name="" class="form-control"
+                                                        value="{{ $users->divisi ? $users->divisi->nama_divisi : 'TIDAK BOLEH INPUT, DIVISI ANDA TELAH DIHAPUS SEGERA HUBUNGI ADMIN' }}"
+                                                        readonly>
+
                                                 </div>
                                             </div>
                                             <div class="col-md-6">
@@ -126,8 +129,14 @@
                                                 <div class="modal-footer">
                                                     <a href="{{ route('budget.index') }}" type="button"
                                                         class="btn btn-secondary btn-lg">Close</a>
-                                                    <button type="submit" id="alert_demo_3_3"
-                                                        class="btn btn-lg btn-success">Kirim</button>
+                                                    @if ($users && $users->divisi_id)
+                                                        <button type="submit" id="alert_demo_3_3"
+                                                            class="btn btn-lg btn-success">Kirim</button>
+                                                    @else
+                                                        <button type="button" disabled id="alert_demo_3_3"
+                                                            class="btn btn-lg btn-success">Belum Ada Divisi</button>
+                                                    @endif
+
                                                 </div>
                                             </div>
                                         </div>

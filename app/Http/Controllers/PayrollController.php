@@ -271,4 +271,28 @@ class PayrollController extends Controller
         $payroll = Payroll::find($id);
         return view("admin.payroll.edit", compact("user", "payroll"));
     }
+
+    // ==================================================================================================================
+    public function Userindex()
+    {
+        // Mengambil pengguna yang sedang login
+        $user = auth()->user();
+
+        $payroll = Payroll::where('user_id', '=', $user->id)->get();
+        // dd($payroll);
+        return view('user.payroll.index', compact('user', 'payroll'));
+    }
+
+    public function DetailPayrollindex($id)
+    {
+        $divisi = Divisi::where("nama_divisi", "HUMAN RESOURCE")->first(); // Perbaiki penulisan nama divisi
+
+        $user = User::join("divisis", "users.divisi_id", "=", "divisis.id")
+            ->select("users.name", "divisis.nama_divisi")
+            ->where("users.divisi_id", "=", $divisi->id) // Perbaiki nama kolom dan hilangkan tanda kutip pada variabel
+            ->first();
+        // dd($user);
+        $payroll = Payroll::findOrFail($id);
+        return view("user.payroll.detailPayroll", compact("payroll", "divisi", "user"));
+    }
 }

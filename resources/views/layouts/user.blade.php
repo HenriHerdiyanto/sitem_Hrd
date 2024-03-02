@@ -231,9 +231,7 @@
                                     @php
                                         $userId = Auth::id();
 
-                                        $userData = DB::table('users')
-                                            ->where('id', $userId)
-                                            ->first();
+                                        $userData = DB::table('users')->where('id', $userId)->first();
                                     @endphp
 
                                     <span class="user-level">
@@ -267,6 +265,12 @@
                             <a href="{{ route('userabsen.index') }}">
                                 <i class="fas fa-clock"></i>
                                 <p>Absen Saya</p>
+                            </a>
+                        </li>
+                        <li class="nav-item{{ $activePage === 'payroll' ? ' active' : '' }}">
+                            <a href="{{ route('user.payrol.index') }}">
+                                <i class="fas fa-clock"></i>
+                                <p>Slip Gaji</p>
                             </a>
                         </li>
                         <li class="nav-item{{ $activePage === 'cuti' ? ' active' : '' }}">

@@ -152,6 +152,7 @@ class BudgetController extends Controller
 
     public function create()
     {
+        $userId = auth()->user()->id;
         // Mengambil data pengguna yang akan ditampilkan
         $users = User::find($userId);
 
@@ -206,6 +207,7 @@ class BudgetController extends Controller
 
     public function edit($id)
     {
+        $userId = auth()->user()->id;
         // Mengambil data pengguna yang akan diedit
         $users = User::find($userId);
 

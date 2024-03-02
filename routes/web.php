@@ -108,6 +108,10 @@ Route::middleware(['auth', 'user-access:user'])->group(function () {
     Route::get('/user/reimbursements/cetak/{id}', [App\Http\Controllers\ReimbursementController::class, 'usercetak'])->name('user.reimbursements.cetak');
     Route::put('/user/reimbursements/update/{id}', [App\Http\Controllers\ReimbursementController::class, 'userupdate'])->name('user.reimbursements.update');
     Route::post('/user/reimbursements/destroy/{id}', [App\Http\Controllers\ReimbursementController::class, 'userdestroy'])->name('user.reimbursements.destroy');
+
+    // payroll
+    Route::get('/user/payrol', [App\Http\Controllers\PayrollController::class, 'Userindex'])->name('user.payrol.index');
+    Route::get('/user/detailPayrolUser/{id}', [App\Http\Controllers\PayrollController::class, 'DetailPayrollindex'])->name('user.payrol.detail');
 });
 
 /*------------------------------------------
