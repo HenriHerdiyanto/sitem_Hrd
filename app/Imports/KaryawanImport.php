@@ -3,6 +3,7 @@
 namespace App\Imports;
 
 use App\Models\User;
+use Carbon\Carbon;
 use Illuminate\Support\Collection;
 use Maatwebsite\Excel\Concerns\ToModel;
 use Maatwebsite\Excel\Concerns\WithHeadingRow;
@@ -17,7 +18,7 @@ class KaryawanImport implements ToModel, WithHeadingRow
             'name' => $row['name'],
             'jenis_kelamin' => $row['jenis_kelamin'],
             'tempat_lahir' => $row['tempat_lahir'],
-            'tanggal_lahir' => $row['tanggal_lahir'],
+            'tanggal_lahir' => date('Y-m-d', strtotime($row['tanggal_lahir'])),
             'alamat_ktp' => $row['alamat_ktp'],
             'alamat_domisili' => $row['alamat_domisili'],
             'no_hp' => $row['no_hp'],
@@ -33,7 +34,8 @@ class KaryawanImport implements ToModel, WithHeadingRow
             'gaji' => $row['gaji'],
             'uang_makan' => $row['uang_makan'],
             'uang_transport' => $row['uang_transport'],
-            'mulai_kerja' => $row['mulai_kerja'],
+            'mulai_kerja' => date('Y-m-d', strtotime($row['mulai_kerja'])),
+            'akhir_kerja' => date('Y-m-d', strtotime($row['akhir_kerja'])),
             'kontrak_kerja' => $row['kontrak_kerja'],
             'status_ptkp' => isset($row['status_ptkp']) ? $row['status_ptkp'] : null,
             'cabang' => isset($row['cabang']) ? $row['cabang'] : null,

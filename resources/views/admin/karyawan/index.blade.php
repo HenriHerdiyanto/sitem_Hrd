@@ -51,6 +51,10 @@
                                         </form>
                                     </div>
                                     <div class="col-4 col-sm-4 d-flex justify-content-end">
+                                        <a href="{{ asset('Template_Import_Karyawan.xlsx') }}"
+                                            class="btn btn-sm btn-info mr-3">
+                                            <img src="{{ asset('bg_excel.png') }}" class="img-fluid" style="width:20px;">
+                                            Template Import</a>
                                         <a href="{{ route('admin.karyawan.create') }}" class="btn btn-sm btn-primary">Tambah
                                             Karyawan</a>
                                     </div>
