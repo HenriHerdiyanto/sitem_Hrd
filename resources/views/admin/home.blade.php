@@ -50,7 +50,7 @@
                     </div>
                     <div class="col-sm-6 col-md-3">
                         {{-- <a href="{{ route('payroll.index') }}"> --}}
-                        <a href="">
+                        <a href="{{ route('payroll.index') }}">
                             <div class="card card-stats card-round">
                                 <div class="card-body">
                                     <div class="row align-items-center">

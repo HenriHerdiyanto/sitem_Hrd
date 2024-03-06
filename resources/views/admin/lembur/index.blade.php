@@ -51,17 +51,19 @@
                                                     <td class="text-center text-nowrap">
                                                         @if ($data->status == 'diterima')
                                                             <a class="btn btn-sm btn-warning"
-                                                                href="{{ route('dinas.edit', $data->id) }}">view</a>
+                                                                href="{{ route('admin.lembur.edit', $data->id) }}"><i
+                                                                    class="fas fa-eye"></i> Lihat</a>
                                                         @else
-                                                            <form action="{{ route('admin.lembur.destroy', $data->id) }}"
+                                                            <a class="btn btn-sm btn-warning"
+                                                                href="{{ route('admin.lembur.edit', $data->id) }}"><i
+                                                                    class="fas fa-eye"></i> Lihat</a>
+                                                            {{-- <form action="{{ route('admin.lembur.destroy', $data->id) }}"
                                                                 method="post">
                                                                 @csrf
                                                                 @method('post')
-                                                                <a class="btn btn-sm btn-warning"
-                                                                    href="{{ route('admin.lembur.edit', $data->id) }}">Edit</a>
                                                                 <button type="submit" id="alert_demo_3_4"
                                                                     class="btn btn-sm btn-danger">Hapus</button>
-                                                            </form>
+                                                            </form> --}}
                                                         @endif
                                                     </td>
                                                 </tr>

@@ -57,14 +57,21 @@
                                                 <div class="form-group">
                                                     <label for="total_lembur">Total Jam Lembur / JAM</label>
                                                     <input type="number" class="form-control" id="total_lembur"
-                                                        value="{{ $lembur->total_lembur }}" name="total_lembur" required>
+                                                        value="{{ $lembur->total_lembur }}" name="total_lembur" required
+                                                        readonly>
                                                 </div>
                                                 <div class="form-group">
                                                     <label for="">Status Konfirmasi</label>
                                                     <select name="status" class="form-control" required>
-                                                        <option selected> -- PILIH -- </option>
-                                                        <option value="diterima">Diterima</option>
-                                                        <option value="ditolak">Ditolak</option>
+                                                        @if ($lembur->status == 'diproses')
+                                                            <option value="" selected> -- PILIH -- </option>
+                                                        @endif
+                                                        <option value="diterima"
+                                                            {{ $lembur->status == 'diterima' ? 'selected' : '' }}>Diterima
+                                                        </option>
+                                                        <option value="ditolak"
+                                                            {{ $lembur->status == 'ditolak' ? 'selected' : '' }}>Ditolak
+                                                        </option>
                                                     </select>
                                                 </div>
                                                 <div class="form-group">

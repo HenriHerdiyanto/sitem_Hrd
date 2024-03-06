@@ -106,7 +106,7 @@
                                                             method="post">
                                                             @csrf
                                                             @method('post')
-                                                            <a class="btn btn-sm btn-success"
+                                                            <a class="btn btn-sm btn-info"
                                                                 href="{{ route('pendidikan.detail', $user->id) }}">
                                                                 <i class="fas fa-user"></i>
                                                             </a>
