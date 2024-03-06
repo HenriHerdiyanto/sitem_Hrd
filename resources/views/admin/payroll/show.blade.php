@@ -60,11 +60,11 @@
                                                 <input type="text" class="form-control" name="cabang"
                                                     value="{{ $user->cabang }}" readonly>
                                             </div>
-                                            <div class="mb-3">
+                                            {{-- <div class="mb-3">
                                                 <label for="" class="form-label">Group</label>
                                                 <input type="text" class="form-control" name="group"
                                                     value="{{ $user->group_karyawan }}" readonly>
-                                            </div>
+                                            </div> --}}
                                         </div>
                                     </div>
                                 </div>
@@ -90,11 +90,11 @@
                                                 <input type="text" class="form-control" id="input1"
                                                     value="{{ $user->gaji }}" name="gaji_pokok" readonly required>
                                             </div>
-                                            <div class="mb-3">
+                                            {{-- <div class="mb-3">
                                                 <label for="tempat_bekerja" class="form-label">Tempat Bekerja</label>
                                                 <input type="text" class="form-control"
                                                     value="{{ $user->tempat_bekerja }}" name="tempat_kerja" readonly>
-                                            </div>
+                                            </div> --}}
                                             <div class="mb-3">
                                                 <label for="tunjangan_jabatan" class="form-label">Besar Tunjangan
                                                     Jabatan</label>
@@ -105,8 +105,7 @@
                                             <div class="mb-3">
                                                 <label for="tunjangan_pulsa" class="form-label">Tunjangan Pulsa</label>
                                                 <input type="text" class="form-control" name="tunjangan_pulsa"
-                                                    id="input1" value="{{ $user->tunjangan_pulsa }}" required
-                                                    readonly>
+                                                    id="input1" value="{{ $user->tunjangan_pulsa }}" required readonly>
                                             </div>
                                             <div class="mb-3">
                                                 <label for="tunjangan_pulsa" class="form-label">Tunjangan PPH 21</label>
@@ -114,9 +113,9 @@
                                                     id="input1" value="0" required>
                                             </div>
                                             <div class="mb-3">
-                                                {{-- <label for="lain_lain" class="form-label">Tunjangan Lain-lain</label> --}}
-                                                <input type="hidden" class="form-control" name="lain_lain"
-                                                    id="input1" value="0" required>
+                                                <label for="lain_lain" class="form-label">Tunjangan Lain-lain</label>
+                                                <input type="text" class="form-control" name="lain_lain"
+                                                    id="input1" value="{{ $user->tunjangan_lain }}" required>
                                             </div>
                                         </div>
                                         <div class="col-md-6">

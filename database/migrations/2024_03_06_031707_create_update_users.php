@@ -6,6 +6,9 @@ use Illuminate\Support\Facades\Schema;
 
 return new class extends Migration
 {
+    /**
+     * Run the migrations.
+     */
     public function up(): void
     {
         // ubah nama kolom
@@ -21,19 +24,22 @@ return new class extends Migration
         //     $table->integer('lain_lain')->after('tunjangan_pulsa');
         // });
         // //hapus kolom
-        // Schema::table('users', function (Blueprint $table) {
-        //     $table->dropColumn('no_ktp');
-        //     $table->dropColumn('group_karyawan');
-        //     $table->dropColumn('tempat_bekerja');
-        // });
+        Schema::table('users', function (Blueprint $table) {
+            $table->dropColumn('no_ktp');
+            $table->dropColumn('group_karyawan');
+            $table->dropColumn('tempat_bekerja');
+        });
         // tambah kolom
-        // Schema::table('users', function (Blueprint $table) {
-        //     $table->bigInteger('tunjangan_lain')->nullable()->after('tunjangan_pendidikan');
-        // });
+        Schema::table('users', function (Blueprint $table) {
+            $table->bigInteger('tunjangan_lain')->nullable()->after('tunjangan_pendidikan');
+        });
     }
 
+    /**
+     * Reverse the migrations.
+     */
     public function down(): void
     {
-        Schema::dropIfExists('update_payrol');
+        Schema::dropIfExists('update_users');
     }
 };

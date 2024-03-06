@@ -78,10 +78,6 @@
                                                 <input type="text" class="form-control" id="no_hp" name="no_hp">
                                             </div>
                                             <div class="mb-3">
-                                                <label for="no_ktp" class="form-label">Nomor KTP</label>
-                                                <input type="text" class="form-control" id="no_ktp" name="no_ktp">
-                                            </div>
-                                            <div class="mb-3">
                                                 <label for="agama" class="form-label">Agama</label>
                                                 <select class="form-control" id="agama" name="agama">
                                                     <option value="islam">islam</option>
@@ -206,14 +202,10 @@
                                                 <input type="text" class="form-control" id="cabang"name="cabang">
                                             </div>
                                             <div class="mb-3">
-                                                <label for="group_karyawan" class="form-label">Group Karyawan</label>
+                                                <label for="tunjangan_lain" class="form-label">Tunjangan Lain-
+                                                    Lain</label>
                                                 <input type="text" class="form-control"
-                                                    id="group_karyawan"name="group_karyawan">
-                                            </div>
-                                            <div class="mb-3">
-                                                <label for="tempat_bekerja" class="form-label">Tempat Bekerja</label>
-                                                <input type="text" class="form-control"
-                                                    id="tempat_bekerja"name="tempat_bekerja">
+                                                    id="tunjangan_lain"name="tunjangan_lain">
                                             </div>
                                             <div class="mb-3">
                                                 <button type="submit" class="btn btn-primary w-100">SUBMIT</button>

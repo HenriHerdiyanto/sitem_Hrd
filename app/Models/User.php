@@ -29,7 +29,6 @@ class User extends Authenticatable
         'alamat_ktp',
         'alamat_domisili',
         'no_hp',
-        'no_ktp',
         'agama',
         'gol_darah',
         'status_pernikahan',
@@ -46,11 +45,10 @@ class User extends Authenticatable
         'kontrak_kerja',
         'status_ptkp',
         'cabang',
-        'group_karyawan',
-        'tempat_bekerja',
         'tunjangan_jabatan',
         'tunjangan_pulsa',
         'tunjangan_pendidikan',
+        'tunjangan_lain',
     ];
     /**
      * The attributes that should be hidden for serialization.

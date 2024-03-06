@@ -80,24 +80,16 @@
                                                     value="{{ $user->no_hp }}" name="no_hp">
                                             </div>
                                             <div class="mb-3">
-                                                <label for="no_ktp" class="form-label">Nomor KTP</label>
-                                                <input type="text" class="form-control" id="no_ktp"
-                                                    value="{{ $user->no_ktp }}" name="no_ktp">
-                                            </div>
-                                            <div class="mb-3">
                                                 <label for="agama" class="form-label">Agama</label>
                                                 <select class="form-control" id="agama" name="agama">
-                                                    <option value="islam"
-                                                        {{ $user->agama == 'islam' ? 'selected' : '' }}>
+                                                    <option value="islam" {{ $user->agama == 'islam' ? 'selected' : '' }}>
                                                         islam</option>
                                                     <option value="kristen"
                                                         {{ $user->agama == 'kristen' ? 'selected' : '' }}>
                                                         kristen</option>
-                                                    <option value="hindu"
-                                                        {{ $user->agama == 'hindu' ? 'selected' : '' }}>
+                                                    <option value="hindu" {{ $user->agama == 'hindu' ? 'selected' : '' }}>
                                                         hindu</option>
-                                                    <option value="budha"
-                                                        {{ $user->agama == 'budha' ? 'selected' : '' }}>
+                                                    <option value="budha" {{ $user->agama == 'budha' ? 'selected' : '' }}>
                                                         budha</option>
                                                 </select>
                                             </div>
@@ -148,23 +140,6 @@
                                                 <input type="email" class="form-control" id="email"
                                                     value="{{ $user->email }}" name="email" required>
                                             </div>
-                                            <div class="mb-3">
-                                                <label for="kontrak_kerja" class="form-label">Kontrak Kerja</label><br>
-                                                <div class="row">
-                                                    <div class="col-8">
-                                                        <input type="file" class="form-control" id="kontrak_kerja"
-                                                            name="kontrak_kerja">
-                                                    </div>
-                                                    <div class="col-4">
-                                                        @if ($user->kontrak_kerja)
-                                                            <a href="{{ asset('kontrak_kerja/' . $user->kontrak_kerja) }}"
-                                                                class="btn btn-outline-primary w-100"
-                                                                target="_blank">Lihat
-                                                                File</a>
-                                                        @endif
-                                                    </div>
-                                                </div>
-                                            </div>
                                         </div>
                                         <div class="col-md-6">
                                             {{-- <div class="mb-3">
@@ -185,7 +160,23 @@
                                                         Manager</option>
                                                 </select>
                                             </div> --}}
-
+                                            <div class="mb-3">
+                                                <label for="kontrak_kerja" class="form-label">Kontrak Kerja</label><br>
+                                                <div class="row">
+                                                    <div class="col-8">
+                                                        <input type="file" class="form-control" id="kontrak_kerja"
+                                                            name="kontrak_kerja">
+                                                    </div>
+                                                    <div class="col-4">
+                                                        @if ($user->kontrak_kerja)
+                                                            <a href="{{ asset('kontrak_kerja/' . $user->kontrak_kerja) }}"
+                                                                class="btn btn-outline-primary w-100"
+                                                                target="_blank">Lihat
+                                                                File</a>
+                                                        @endif
+                                                    </div>
+                                                </div>
+                                            </div>
                                             <div class="mb-3">
                                                 <label for="foto_karyawan" class="form-label">Foto karyawan</label><br>
                                                 @if ($user->foto_karyawan == null)
@@ -193,7 +184,7 @@
                                                         value="{{ $user->foto_karyawan }}" name="foto_karyawan">
                                                 @else
                                                     <img src="{{ asset('foto_karyawan/' . $user->foto_karyawan) }}"
-                                                        alt="" class="img-fluid" style="width:200px;">
+                                                        alt="" class="img-fluid" style="width:100px;">
                                                     <input type="file" class="form-control" id="foto_karyawan"
                                                         value="{{ $user->foto_karyawan }}" name="foto_karyawan">
                                                 @endif
@@ -233,6 +224,12 @@
                                                     name="tunjangan_pendidikan">
                                             </div>
                                             <div class="mb-3">
+                                                <label for="tunjangan_lain" class="form-label">Tunjangan
+                                                    Lain-lain</label>
+                                                <input type="text" class="form-control" id="tunjangan_lain"
+                                                    value="{{ $user->tunjangan_lain }}" name="tunjangan_lain">
+                                            </div>
+                                            <div class="mb-3">
                                                 <label for="mulai_kerja" class="form-label">Mulai Kerja</label>
                                                 <input type="date" class="form-control" id="mulai_kerja"
                                                     value="{{ $user->mulai_kerja }}" name="mulai_kerja">
@@ -251,16 +248,6 @@
                                                 <label for="cabang" class="form-label">Cabang</label>
                                                 <input type="text" class="form-control" id="cabang"
                                                     value="{{ $user->cabang }}" name="cabang">
-                                            </div>
-                                            <div class="mb-3">
-                                                <label for="group_karyawan" class="form-label">Group</label>
-                                                <input type="text" class="form-control" id="group_karyawan"
-                                                    value="{{ $user->group_karyawan }}" name="group_karyawan">
-                                            </div>
-                                            <div class="mb-3">
-                                                <label for="tempat_bekerja" class="form-label">Tempat Bekerja</label>
-                                                <input type="text" class="form-control" id="tempat_bekerja"
-                                                    value="{{ $user->tempat_bekerja }}" name="tempat_bekerja">
                                             </div>
                                             <div class="mb-3">
                                                 <button type="submit" class="btn btn-success w-100">UPDATE</button>

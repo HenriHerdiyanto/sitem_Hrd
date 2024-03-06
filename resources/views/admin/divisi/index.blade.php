@@ -88,7 +88,7 @@
                                             <div class="numbers">
                                                 <a href="#" data-toggle="modal"
                                                     data-target="#myModal{{ $data->id }}">
-                                                    <p class="card-category">{{ $data->kode_divisi }}</p>
+                                                    <p class="card-category">Divisi ID : {{ $data->id }}</p>
                                                     <h4 class="card-title">{{ $data->nama_divisi }}</h4>
                                                 </a>
                                             </div>
@@ -115,12 +115,16 @@
                                         @csrf
                                         @method('put')
                                         <div class="modal-body">
-                                            <!-- Isi modal dengan informasi divisi -->
-                                            <input type="text" name="kode_divisi" class="form-control mb-3"
-                                                value="{{ $data->kode_divisi }}">
-                                            <input type="text" name="nama_divisi" class="form-control mb-3"
-                                                value="{{ $data->nama_divisi }}">
-                                            <!-- Anda dapat menambahkan informasi lainnya di sini -->
+                                            <div class="mb-3">
+                                                <label for="kode_divisi">Kode Divisi</label>
+                                                <input type="text" name="kode_divisi" class="form-control mb-3"
+                                                    value="{{ $data->kode_divisi }}">
+                                            </div>
+                                            <div class="mb-3">
+                                                <label for="nama_divisi">Nama Divisi</label>
+                                                <input type="text" name="nama_divisi" class="form-control mb-3"
+                                                    value="{{ $data->nama_divisi }}">
+                                            </div>
                                         </div>
                                         <div class="modal-footer">
                                             <button id="alert_demo_3_3" type="submit" style="margin-bottom: 13%;"
