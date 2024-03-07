@@ -244,8 +244,8 @@ class HomeController extends Controller
             'kontrak_kerja' => 'file|mimes:pdf,doc,docx|max:2048',
             'status_ptkp' => 'nullable',
             'cabang' => 'nullable',
-            'group_karyawan' => 'nullable',
-            'tempat_bekerja' => 'nullable',
+            // 'group_karyawan' => 'nullable',
+            // 'tempat_bekerja' => 'nullable',
             'tunjangan_jabatan' => 'nullable',
             'tunjangan_pulsa' => 'nullable',
             'tunjangan_pendidikan' => 'nullable',
@@ -316,7 +316,7 @@ class HomeController extends Controller
         $karyawan->alamat_ktp = $validatedData['alamat_ktp'];
         $karyawan->alamat_domisili = $validatedData['alamat_domisili'];
         $karyawan->no_hp = $validatedData['no_hp'];
-        $karyawan->no_ktp = $validatedData['no_ktp'];
+        // $karyawan->no_ktp = $validatedData['no_ktp'];
         $karyawan->agama = $validatedData['agama'];
         $karyawan->gol_darah = $validatedData['gol_darah'];
         $karyawan->status_pernikahan = $validatedData['status_pernikahan'];
@@ -331,8 +331,8 @@ class HomeController extends Controller
         $karyawan->akhir_kerja = $validatedData['akhir_kerja'];
         $karyawan->status_ptkp = $validatedData['status_ptkp'];
         $karyawan->cabang = $validatedData['cabang'];
-        $karyawan->group_karyawan = $validatedData['group_karyawan'];
-        $karyawan->tempat_bekerja = $validatedData['tempat_bekerja'];
+        // $karyawan->group_karyawan = $validatedData['group_karyawan'];
+        // $karyawan->tempat_bekerja = $validatedData['tempat_bekerja'];
         $karyawan->tunjangan_jabatan = $validatedData['tunjangan_jabatan'];
         $karyawan->tunjangan_pulsa = $validatedData['tunjangan_pulsa'];
         $karyawan->tunjangan_pendidikan = $validatedData['tunjangan_pendidikan'];

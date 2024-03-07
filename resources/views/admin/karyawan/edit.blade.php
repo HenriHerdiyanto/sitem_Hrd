@@ -70,6 +70,11 @@
                                                     value="{{ $user->alamat_domisili }}" name="alamat_domisili">
                                             </div>
                                             <div class="mb-3">
+                                                <label for="alamat_ktp" class="form-label">Alamat KTP</label>
+                                                <input type="text" class="form-control" id="alamat_ktp"
+                                                    value="{{ $user->alamat_ktp }}" name="alamat_ktp">
+                                            </div>
+                                            <div class="mb-3">
                                                 <label for="no_hp" class="form-label">Nomor HP</label>
                                                 <input type="text" class="form-control" id="no_hp"
                                                     value="{{ $user->no_hp }}" name="no_hp">
@@ -91,11 +96,14 @@
                                             <div class="mb-3">
                                                 <label for="gol_darah" class="form-label">Gol Darah</label>
                                                 <select class="form-control" id="gol_darah" name="gol_darah">
-                                                    <option value="o" {{ $user->gol_darah == 'o' ? 'selected' : '' }}>
+                                                    <option value="o"
+                                                        {{ $user->gol_darah == 'o' ? 'selected' : '' }}>
                                                         o</option>
-                                                    <option value="a" {{ $user->gol_darah == 'a' ? 'selected' : '' }}>
+                                                    <option value="a"
+                                                        {{ $user->gol_darah == 'a' ? 'selected' : '' }}>
                                                         a</option>
-                                                    <option value="b" {{ $user->gol_darah == 'b' ? 'selected' : '' }}>
+                                                    <option value="b"
+                                                        {{ $user->gol_darah == 'b' ? 'selected' : '' }}>
                                                         b</option>
                                                     <option value="ab"
                                                         {{ $user->gol_darah == 'ab' ? 'selected' : '' }}>
@@ -141,15 +149,20 @@
                                             </div> --}}
                                             <div class="mb-3">
                                                 <label for="type" class="form-label">Jabatan Karyawan</label>
-                                                <select class="form-control" id="type" name="type">
-                                                    <option value="{{ $user->type }}" selected>{{ $user->type }}
-                                                    </option>
-                                                    <option value="0" {{ $user->type == 0 ? 'selected' : '' }}>user
-                                                    </option>
-                                                    {{-- <option value="1" {{ $user->type == 1 ? 'selected' : '' }}>Admin
-                                                    </option> --}}
-                                                    <option value="2" {{ $user->type == 2 ? 'selected' : '' }}>
-                                                        Manager</option>
+                                                <select class="form-control" id="type" name="type" required>
+                                                    @if ($user->type == 'user')
+                                                        <option value="0" selected> {{ $user->type }}</option>
+                                                        <option value="2"> Manager</option>
+                                                        <option value="3"> Finance</option>
+                                                    @elseif($user->type == 'manager')
+                                                        <option value="2" selected> {{ $user->type }}</option>
+                                                        <option value="0"> User</option>
+                                                        <option value="3"> Finance</option>
+                                                    @elseif($user->type == 'finance')
+                                                        <option value="3" selected> {{ $user->type }}</option>
+                                                        <option value="0"> User</option>
+                                                        <option value="2"> Manager</option>
+                                                    @endif
                                                 </select>
                                             </div>
                                             <div class="mb-3">
@@ -162,8 +175,7 @@
                                                     <div class="col-4">
                                                         @if ($user->kontrak_kerja)
                                                             <a href="{{ asset('kontrak_kerja/' . $user->kontrak_kerja) }}"
-                                                                class="btn btn-outline-primary w-100"
-                                                                target="_blank">Lihat
+                                                                class="btn btn-primary w-100" target="_blank">Lihat
                                                                 File</a>
                                                         @endif
                                                     </div>
@@ -242,7 +254,8 @@
                                                     value="{{ $user->cabang }}" name="cabang">
                                             </div>
                                             <div class="mb-3">
-                                                <button type="submit" class="btn btn-success w-100">UPDATE</button>
+                                                <button type="submit" id="submitButton"
+                                                    class="btn btn-success w-100">UPDATE</button>
                                             </div>
                                         </div>
                                     </div>
@@ -255,4 +268,13 @@
         </div>
     </div>
     </div>
+    <script>
+        document.getElementById('updateForm').addEventListener('submit', function(event) {
+            var jabatan = document.getElementById('type').value;
+            if (jabatan === '') {
+                event.preventDefault();
+                alert('Harap pilih jabatan sebelum melanjutkan');
+            }
+        });
+    </script>
 @endsection
