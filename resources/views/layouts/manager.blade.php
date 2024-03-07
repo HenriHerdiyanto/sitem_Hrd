@@ -85,13 +85,29 @@
                         @php
                             $userId = Auth::id();
 
-                            $cuti = DB::table('cutis')->where('status', 'diproses')->where('user_id', $userId)->orderBy('id')->get();
+                            $cuti = DB::table('cutis')
+                                ->where('status', 'diproses')
+                                ->where('user_id', $userId)
+                                ->orderBy('id')
+                                ->get();
 
-                            $budget = DB::table('budgets')->where('status', 'diproses')->where('user_id', $userId)->orderBy('id')->get();
+                            $budget = DB::table('budgets')
+                                ->where('status', 'diproses')
+                                ->where('user_id', $userId)
+                                ->orderBy('id')
+                                ->get();
 
-                            $pinjaman = DB::table('pinjamen')->where('status', 'diproses')->where('user_id', $userId)->orderBy('id')->get();
+                            $pinjaman = DB::table('pinjamen')
+                                ->where('status', 'diproses')
+                                ->where('user_id', $userId)
+                                ->orderBy('id')
+                                ->get();
 
-                            $lembur = DB::table('lemburs')->where('status', 'diproses')->where('user_id', $userId)->orderBy('id')->get();
+                            $lembur = DB::table('lemburs')
+                                ->where('status', 'diproses')
+                                ->where('user_id', $userId)
+                                ->orderBy('id')
+                                ->get();
                         @endphp
 
                         <li class="nav-item dropdown hidden-caret">
@@ -99,9 +115,12 @@
                                 id="notifDropdown" role="button" data-toggle="dropdown" aria-haspopup="true"
                                 aria-expanded="false">
                                 <i class="fa fa-bell"></i>
-                                <span class="notification">
-                                    {{ count($cuti) + count($budget) + count($pinjaman) + count($lembur) }}
-                                </span>
+                                @if (count($cuti) + count($budget) + count($pinjaman) + count($lembur) == 0)
+                                @else
+                                    <span class="notification">
+                                        {{ count($cuti) + count($budget) + count($pinjaman) + count($lembur) }}
+                                    </span>
+                                @endif
                             </a>
                             <ul class="dropdown-menu notif-box animated fadeIn" aria-labelledby="notifDropdown">
                                 <li>
@@ -148,7 +167,7 @@
                                                     <a>
                                             @endif
                                             @if (count($lembur) > 0)
-                                                <a href="{{ route('user.lembur.index') }}" class="block">
+                                                <a href="{{ route('manager.lembur.index') }}" class="block">
                                                     <div class="notif-icon notif-primary"> <i class="fas fa-clock"></i>
                                                     </div>
                                                     <div class="notif-content">

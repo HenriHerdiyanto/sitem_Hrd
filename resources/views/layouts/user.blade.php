@@ -121,9 +121,12 @@
                                 id="notifDropdown" role="button" data-toggle="dropdown" aria-haspopup="true"
                                 aria-expanded="false">
                                 <i class="fa fa-bell"></i>
-                                <span class="notification">
-                                    {{ count($cuti) + count($budget) + count($pinjaman) + count($lembur) }}
-                                </span>
+                                @if (count($cuti) + count($budget) + count($pinjaman) + count($lembur) == 0)
+                                @else
+                                    <span class="notification">
+                                        {{ count($cuti) + count($budget) + count($pinjaman) + count($lembur) }}
+                                    </span>
+                                @endif
                             </a>
                             <ul class="dropdown-menu notif-box animated fadeIn" aria-labelledby="notifDropdown">
                                 <li>
@@ -223,7 +226,8 @@
                 <div class="sidebar-content">
                     <div class="user">
                         <div class="avatar-sm float-left mr-2">
-                            <img src="{{ asset('user.png') }}" alt="..." class="avatar-img rounded-circle">
+                            <img src="{{ asset('foto_karyawan/' . $user->foto_karyawan) }}" alt="..."
+                                class="avatar-img rounded-circle">
                         </div>
                         <div class="info">
                             <a data-toggle="collapse" href="#collapseExample" aria-expanded="true">

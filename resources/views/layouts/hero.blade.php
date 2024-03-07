@@ -93,7 +93,10 @@
 
                             $lembur = DB::table('lemburs')->where('status', 'diproses')->orderBy('id')->get();
 
-                            $PerjalananDinas = DB::table('perjalanan_dinas')->where('status', 'diproses')->orderBy('id')->get();
+                            $PerjalananDinas = DB::table('perjalanan_dinas')
+                                ->where('status', 'diproses')
+                                ->orderBy('id')
+                                ->get();
                         @endphp
 
                         <li class="nav-item dropdown hidden-caret">
@@ -101,9 +104,12 @@
                                 id="notifDropdown" role="button" data-toggle="dropdown" aria-haspopup="true"
                                 aria-expanded="false">
                                 <i class="fa fa-bell"></i>
-                                <span class="notification">
-                                    {{ count($cuti) + count($budget) + count($pinjaman) + count($lembur) }}
-                                </span>
+                                @if (count($cuti) + count($budget) + count($pinjaman) + count($lembur) == 0)
+                                @else
+                                    <span class="notification">
+                                        {{ count($cuti) + count($budget) + count($pinjaman) + count($lembur) }}
+                                    </span>
+                                @endif
                             </a>
                             <ul class="dropdown-menu notif-box animated fadeIn" aria-labelledby="notifDropdown">
                                 <li>

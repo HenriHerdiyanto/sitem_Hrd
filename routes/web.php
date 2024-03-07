@@ -50,6 +50,7 @@ Route::middleware(['auth', 'user-access:user'])->group(function () {
 
     // profile
     Route::get('/user/profile', [App\Http\Controllers\HomeController::class, 'Profileuser'])->name('user.profile');
+    Route::put('/user/update/profile/{id}', [App\Http\Controllers\HomeController::class, 'updateProfile'])->name('user.update.Profile');
 
     // pendidikan
     Route::post('/user/pendidikan/store', [App\Http\Controllers\PendidikanController::class, 'userstore'])->name('user.pendidikan.store');

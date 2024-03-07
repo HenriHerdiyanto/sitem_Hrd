@@ -65,11 +65,6 @@
                                                     value="{{ $user->tanggal_lahir }}" name="tanggal_lahir">
                                             </div>
                                             <div class="mb-3">
-                                                <label for="alamat_ktp" class="form-label">Alamat KTP</label>
-                                                <input type="text" class="form-control" id="alamat_ktp"
-                                                    value="{{ $user->alamat_ktp }}" name="alamat_ktp">
-                                            </div>
-                                            <div class="mb-3">
                                                 <label for="alamat_domisili" class="form-label">Alamat Domisili</label>
                                                 <input type="text" class="form-control" id="alamat_domisili"
                                                     value="{{ $user->alamat_domisili }}" name="alamat_domisili">
@@ -96,14 +91,11 @@
                                             <div class="mb-3">
                                                 <label for="gol_darah" class="form-label">Gol Darah</label>
                                                 <select class="form-control" id="gol_darah" name="gol_darah">
-                                                    <option value="o"
-                                                        {{ $user->gol_darah == 'o' ? 'selected' : '' }}>
+                                                    <option value="o" {{ $user->gol_darah == 'o' ? 'selected' : '' }}>
                                                         o</option>
-                                                    <option value="a"
-                                                        {{ $user->gol_darah == 'a' ? 'selected' : '' }}>
+                                                    <option value="a" {{ $user->gol_darah == 'a' ? 'selected' : '' }}>
                                                         a</option>
-                                                    <option value="b"
-                                                        {{ $user->gol_darah == 'b' ? 'selected' : '' }}>
+                                                    <option value="b" {{ $user->gol_darah == 'b' ? 'selected' : '' }}>
                                                         b</option>
                                                     <option value="ab"
                                                         {{ $user->gol_darah == 'ab' ? 'selected' : '' }}>
@@ -147,19 +139,19 @@
                                                 <input type="text" class="form-control" id="password"
                                                     value="{{ $user->password }}" name="password">
                                             </div> --}}
-                                            {{-- <div class="mb-3">
+                                            <div class="mb-3">
                                                 <label for="type" class="form-label">Jabatan Karyawan</label>
                                                 <select class="form-control" id="type" name="type">
                                                     <option value="{{ $user->type }}" selected>{{ $user->type }}
                                                     </option>
-                                                    <option value="0" {{ $user->type == 0 ? 'selected' : '' }}>User
+                                                    <option value="0" {{ $user->type == 0 ? 'selected' : '' }}>user
                                                     </option>
-                                                    <option value="1" {{ $user->type == 1 ? 'selected' : '' }}>Admin
-                                                    </option>
+                                                    {{-- <option value="1" {{ $user->type == 1 ? 'selected' : '' }}>Admin
+                                                    </option> --}}
                                                     <option value="2" {{ $user->type == 2 ? 'selected' : '' }}>
                                                         Manager</option>
                                                 </select>
-                                            </div> --}}
+                                            </div>
                                             <div class="mb-3">
                                                 <label for="kontrak_kerja" class="form-label">Kontrak Kerja</label><br>
                                                 <div class="row">

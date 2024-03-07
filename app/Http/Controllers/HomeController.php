@@ -229,13 +229,12 @@ class HomeController extends Controller
             'alamat_ktp' => 'nullable',
             'alamat_domisili' => 'nullable',
             'no_hp' => 'nullable',
-            'no_ktp' => 'nullable',
             'agama' => 'nullable',
             'gol_darah' => 'nullable',
             'status_pernikahan' => 'nullable',
             'status_karyawan' => 'nullable',
             'email' => 'nullable',
-            // 'type' => 'nullable',
+            'type' => 'nullable',
             'foto_karyawan' => 'file|image|mimes:jpeg,png,jpg|max:2048',
             'gaji' => 'nullable',
             'uang_makan' => 'nullable',
@@ -250,6 +249,7 @@ class HomeController extends Controller
             'tunjangan_jabatan' => 'nullable',
             'tunjangan_pulsa' => 'nullable',
             'tunjangan_pendidikan' => 'nullable',
+            'tunjangan_lain' => 'nullable',
         ]);
         // Cek apakah ada file gambar yang diunggah
         if ($request->hasFile('foto_karyawan')) {
@@ -322,7 +322,7 @@ class HomeController extends Controller
         $karyawan->status_pernikahan = $validatedData['status_pernikahan'];
         $karyawan->status_karyawan = $validatedData['status_karyawan'];
         $karyawan->email = $validatedData['email'];
-        // $karyawan->type = $validatedData['type'];
+        $karyawan->type = $validatedData['type'];
         // $karyawan->foto_karyawan = $nama_file;
         $karyawan->gaji = $validatedData['gaji'];
         $karyawan->uang_makan = $validatedData['uang_makan'];
@@ -336,6 +336,7 @@ class HomeController extends Controller
         $karyawan->tunjangan_jabatan = $validatedData['tunjangan_jabatan'];
         $karyawan->tunjangan_pulsa = $validatedData['tunjangan_pulsa'];
         $karyawan->tunjangan_pendidikan = $validatedData['tunjangan_pendidikan'];
+        $karyawan->tunjangan_lain = $validatedData['tunjangan_lain'];
         // $karyawan->kontrak_kerja = $nama_file_kontrak;
         $karyawan->save();
         // dd($user);
@@ -351,6 +352,52 @@ class HomeController extends Controller
         $user = User::find(Auth::user()->id);
         return view('user.profile', compact('user', 'keluargas', 'divisis', 'users', 'pendidikans'));
     }
+
+    public function updateProfile(Request $request, $id)
+    {
+        // Validasi data yang diterima dari form
+        $request->validate([
+            'divisi_id' => 'required',
+            'name' => 'required|string|max:255',
+            'email' => 'required|string|email|max:255',
+            'tanggal_lahir' => 'required|date',
+            'jenis_kelamin' => 'required|string|in:laki-laki,perempuan',
+            'no_hp' => 'required|string|max:15',
+            'agama' => 'required|string|in:islam,kristen,hindu,budha',
+            'gol_darah' => 'required|string|max:5',
+            'alamat_domisili' => 'required|string|max:255',
+            'foto_karyawan' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
+        ]);
+
+        // Temukan pengguna berdasarkan ID
+        $user = User::findOrFail($id);
+
+        // Perbarui data pengguna
+        $user->name = $request->input('name');
+        $user->email = $request->input('email');
+        $user->tanggal_lahir = $request->input('tanggal_lahir');
+        $user->jenis_kelamin = $request->input('jenis_kelamin');
+        $user->no_hp = $request->input('no_hp');
+        $user->agama = $request->input('agama');
+        $user->gol_darah = $request->input('gol_darah');
+        $user->alamat_domisili = $request->input('alamat_domisili');
+
+        // Perbarui foto profil jika diunggah
+        if ($request->hasFile('foto_karyawan')) {
+            $image = $request->file('foto_karyawan');
+            $imageName = time() . '.' . $image->getClientOriginalExtension();
+            $image->move(public_path('foto_karyawan'), $imageName);
+            $user->foto_karyawan = $imageName;
+        }
+
+        // Simpan perubahan
+        $user->save();
+
+        // Redirect ke halaman profil atau halaman lain yang sesuai
+        return redirect()->route('user.profile')->with('success', 'Profil berhasil diperbarui');
+    }
+
+
     // ========================================================================================================
     // ========================================================================================================
     // ========================================================================================================
