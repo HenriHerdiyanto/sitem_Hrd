@@ -43,6 +43,11 @@
 </head>
 
 <body>
+    @php
+        $userId = Auth::id();
+
+        $userData = DB::table('users')->where('id', $userId)->first();
+    @endphp
     <div class="wrapper">
         <div class="main-header" data-background-color="purple">
             <!-- Logo Header -->
@@ -226,20 +231,24 @@
                 <div class="sidebar-content">
                     <div class="user">
                         <div class="avatar-sm float-left mr-2">
-                            <img src="{{ asset('foto_karyawan/' . $user->foto_karyawan) }}" alt="..."
+                            <img src="{{ asset('foto_karyawan/' . $userData->foto_karyawan) }}" alt="..."
                                 class="avatar-img rounded-circle">
+                            {{-- @if ($userData->jenis_kelamin == 'perempuan')
+                                <img src="{{ asset('user-perempuan.jpg') }}" alt="..."
+                                    class="avatar-img rounded-circle">
+                            @else
+                                <img src="{{ asset('user-laki.jpg') }}" alt="..."
+                                    class="avatar-img rounded-circle">
+                            @endif --}}
+                            {{-- <img src="{{ asset('user.jpg') }}" alt="..." class="avatar-img rounded-circle"> --}}
                         </div>
                         <div class="info">
                             <a data-toggle="collapse" href="#collapseExample" aria-expanded="true">
                                 <span>
-                                    @php
-                                        $userId = Auth::id();
 
-                                        $userData = DB::table('users')->where('id', $userId)->first();
-                                    @endphp
 
                                     <span class="user-level">
-                                        <h3>{{ $userData->name }}</h3>
+                                        <h3>{{ $userData->jenis_kelamin }}</h3>
                                     </span>
 
                                     <span class="caret"></span>
