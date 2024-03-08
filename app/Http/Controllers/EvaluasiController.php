@@ -12,16 +12,12 @@ class EvaluasiController extends Controller
 {
     public function index()
     {
-        // Mengambil user_id pengguna yang sedang login
-        $userId = Auth::user()->id;
-
-        // Mengambil semua divisi (jika diperlukan)
-        $divisis = Divisi::all();
-
-        // get evaluations for the logged-in user
-        $evaluasi = Evaluasi::where('user_id', $userId)->get();
-
-        return view("manager.evaluasi.index", compact("evaluasi", "divisis"));
+        $user = auth()->user();
+        $idDivisi = $user->divisi_id;
+        $evaluasi = Evaluasi::where("divisi_id", "=", $idDivisi)->get();
+        $users = User::where("divisi_id", "=", $idDivisi)->get();
+        $divisis = Divisi::where("id", "=", $idDivisi)->get();
+        return view("manager.evaluasi.index", compact("user", "users", "idDivisi", "evaluasi", "divisis"));
     }
     public function Adminindex()
     {

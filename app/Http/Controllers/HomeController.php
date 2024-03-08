@@ -408,7 +408,10 @@ class HomeController extends Controller
         $userId = Auth::id();
 
         $divisis = Divisi::all();
-        $users = User::where('divisi_id', $divisiId)->orderby('type', 'desc')->get();
+        $users = User::where('divisi_id', $divisiId)
+            ->where('type', '=', 'user')
+            ->get();
+
         $user = auth()->user();
         $name = User::find(Auth::user()->id);
         $todolists = $user->todolists;
@@ -433,5 +436,49 @@ class HomeController extends Controller
         $user = User::find($id);
 
         return view('manager.edit', compact('user', 'divisis'));
+    }
+
+    public function updateProfileManager(Request $request, $id)
+    {
+        // Validasi data yang diterima dari form
+        $request->validate([
+            'divisi_id' => 'required',
+            'name' => 'required|string|max:255',
+            'email' => 'required|string|email|max:255',
+            'tanggal_lahir' => 'required|date',
+            'jenis_kelamin' => 'required|string|in:laki-laki,perempuan',
+            'no_hp' => 'required|string|max:15',
+            'agama' => 'required|string|in:islam,kristen,hindu,budha',
+            'gol_darah' => 'required|string|max:5',
+            'alamat_domisili' => 'required|string|max:255',
+            'foto_karyawan' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
+        ]);
+
+        // Temukan pengguna berdasarkan ID
+        $user = User::findOrFail($id);
+
+        // Perbarui data pengguna
+        $user->name = $request->input('name');
+        $user->email = $request->input('email');
+        $user->tanggal_lahir = $request->input('tanggal_lahir');
+        $user->jenis_kelamin = $request->input('jenis_kelamin');
+        $user->no_hp = $request->input('no_hp');
+        $user->agama = $request->input('agama');
+        $user->gol_darah = $request->input('gol_darah');
+        $user->alamat_domisili = $request->input('alamat_domisili');
+
+        // Perbarui foto profil jika diunggah
+        if ($request->hasFile('foto_karyawan')) {
+            $image = $request->file('foto_karyawan');
+            $imageName = time() . '.' . $image->getClientOriginalExtension();
+            $image->move(public_path('foto_karyawan'), $imageName);
+            $user->foto_karyawan = $imageName;
+        }
+
+        // Simpan perubahan
+        $user->save();
+
+        // Redirect ke halaman profil atau halaman lain yang sesuai
+        return redirect()->route('manager.profile')->with('success', 'Profil berhasil diperbarui');
     }
 }

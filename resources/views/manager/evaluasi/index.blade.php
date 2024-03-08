@@ -9,7 +9,7 @@
                             <div class="card-header">
                                 <div class="row">
                                     <div class="col-8 col-sm-8">
-                                        {{ __('Detail Karyawan') }}
+                                        {{ __('Detail Evaluasi Karyawan') }}
                                     </div>
                                 </div>
                             </div>

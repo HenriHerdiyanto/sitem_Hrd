@@ -41,194 +41,200 @@
                                     </li>
                                 </ul>
                                 <div class="tab-content mt-2 mb-3" id="pills-with-icon-tabContent">
-                                    <form action="{{ route('user.update.Profile', $user->id) }}" method="post"
-                                        enctype="multipart/form-data">
-                                        @csrf
-                                        @method('put')
-                                        <div class="row mt-3">
+                                    <div class="tab-pane fade show active" id="pills-home-icon" role="tabpanel"
+                                        aria-labelledby="pills-home-tab-icon">
+                                        <form action="{{ route('user.update.Profile', $user->id) }}" method="post"
+                                            enctype="multipart/form-data">
+                                            @csrf
+                                            @method('put')
+                                            <div class="row mt-3">
+                                                <div class="col-md-12">
+                                                    <div class="form-group form-group-default">
+                                                        <label>Divisi</label>
+                                                        <input type="text" class="form-control" name="divisi_id"
+                                                            value="{{ $user->divisi->nama_divisi }}" readonly>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="row mt-3">
+                                                <div class="col-md-6">
+                                                    <div class="form-group form-group-default">
+                                                        <label>Name</label>
+                                                        <input type="text" class="form-control" name="name"
+                                                            placeholder="Name" value="{{ $user->name }}">
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-6">
+                                                    <div class="form-group form-group-default">
+                                                        <label>Email</label>
+                                                        <input type="email" class="form-control" name="email"
+                                                            placeholder="Name" value="{{ $user->email }}">
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="row mt-3">
+                                                <div class="col-md-4">
+                                                    <div class="form-group form-group-default">
+                                                        <label>Tanggal Lahir</label>
+                                                        <input type="date" class="form-control" id="tanggal_lahir"
+                                                            name="tanggal_lahir" value="{{ $user->tanggal_lahir }}">
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-4">
+                                                    <div class="form-group form-group-default">
+                                                        <label>Gender</label>
+                                                        <select class="form-control" id="jenis_kelamin"
+                                                            name="jenis_kelamin">
+                                                            <option selected value="{{ $user->jenis_kelamin }}">
+                                                                {{ $user->jenis_kelamin }}</option>
+                                                            <option value="laki-laki">Laki-laki</option>
+                                                            <option value="perempuan">perempuan</option>
+                                                        </select>
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-4">
+                                                    <div class="form-group form-group-default">
+                                                        <label>Phone</label>
+                                                        <input type="text" class="form-control"
+                                                            value="{{ $user->no_hp }}" name="no_hp" placeholder="no_hp">
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-4">
+                                                    <div class="form-group form-group-default">
+                                                        <label>Agama</label>
+                                                        <select name="agama" class="form-control">
+                                                            <option value="{{ $user->agama }}" selected>{{ $user->agama }}
+                                                            </option>
+                                                            <option value="islam">Islam</option>
+                                                            <option value="kristen">kristen</option>
+                                                            <option value="hindu">hindu</option>
+                                                            <option value="budha">budha</option>
+                                                        </select>
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-4">
+                                                    <div class="form-group form-group-default">
+                                                        <label>Gol Darah</label>
+                                                        <input type="text" class="form-control"
+                                                            value="{{ $user->gol_darah }}" name="gol_darah"
+                                                            placeholder="gol_darah">
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-4">
+                                                    <div class="form-group form-group-default">
+                                                        <label>Alamat Domisili</label>
+                                                        <input type="text" class="form-control"
+                                                            value="{{ $user->alamat_domisili }}" name="alamat_domisili"
+                                                            placeholder="alamat_domisili">
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-4">
+                                                    <div class="form-group form-group-default">
+                                                        <label>Status Pernikahan</label>
+                                                        <input type="text" class="form-control" id="status_pernikahan"
+                                                            name="status_pernikahan"
+                                                            value="{{ $user->status_pernikahan }}"
+                                                            placeholder="status_pernikahan" readonly>
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-4">
+                                                    <div class="form-group form-group-default">
+                                                        <label>Status Karyawan</label>
+                                                        <input type="text" class="form-control" id="status_karyawan"
+                                                            name="status_karyawan" value="{{ $user->status_karyawan }}"
+                                                            placeholder="status_karyawan" readonly>
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-4">
+                                                    <div class="form-group form-group-default">
+                                                        <label>Jabatan</label>
+                                                        <input type="text" class="form-control"
+                                                            value="{{ $user->type }}" name="type"
+                                                            placeholder="type" readonly>
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-4">
+                                                    <div class="form-group form-group-default">
+                                                        <label>Gaji Karyawan</label>
+                                                        <input type="text" class="form-control"
+                                                            value="{{ $user->gaji }}" name="gaji"
+                                                            placeholder="gaji" readonly>
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-4">
+                                                    <div class="form-group form-group-default">
+                                                        <label>Uang Makan</label>
+                                                        <input type="text" class="form-control"
+                                                            value="{{ $user->uang_makan }}" name="uang_makan"
+                                                            placeholder="uang_makan" readonly>
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-4">
+                                                    <div class="form-group form-group-default">
+                                                        <label>Uang transport</label>
+                                                        <input type="text" class="form-control"
+                                                            value="{{ $user->uang_transport }}" name="uang_transport"
+                                                            placeholder="uang_transport" readonly>
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-4">
+                                                    <div class="form-group form-group-default">
+                                                        <label>Mulai Kerja</label>
+                                                        <input type="text" class="form-control"
+                                                            value="{{ $user->mulai_kerja }}" name="mulai_kerja"
+                                                            placeholder="mulai_kerja" readonly>
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-4">
+                                                    <div class="form-group form-group-default">
+                                                        <label>Akhir Kerja</label>
+                                                        <input type="text" class="form-control"
+                                                            value="{{ $user->akhir_kerja }}" name="akhir_kerja"
+                                                            placeholder="akhir_kerja" readonly>
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-4">
+                                                    <div class="form-group form-group-default">
+                                                        <label>Tunjangan Lain - lain</label>
+                                                        <input type="text" class="form-control"
+                                                            value="{{ $user->tunjangan_lain }}" name="tunjangan_lain"
+                                                            placeholder="tunjangan_lain" readonly>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="row d-flex">
+                                                <div class="col-md-8">
+                                                    <div class="form-group form-group-default">
+                                                        @if ($user->foto_karyawan)
+                                                            <label for="">UPDATE FOTO KARYAWAN</label>
+                                                            <img src="{{ asset('foto_karyawan/' . $user->foto_karyawan) }}"
+                                                                class="img-fluid" style="width: 200px;">
+                                                            <input type="file" class="form-control"
+                                                                name="foto_karyawan" value="{{ $user->foto_karyawan }}">
+                                                        @else
+                                                            <label for="">UPLOAD FOTO KARYAWAN</label>
+                                                            <input type="file" class="form-control"
+                                                                name="foto_karyawan">
+                                                        @endif
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-4">
+                                                    <div class="form-group form-group-default">
+                                                        <input type="hidden" class="form-control"
+                                                            value="{{ $user->kontrak_kerja }}" name="kontrak_kerja">
+                                                        <a href="{{ asset('kontrak_kerja/' . $user->kontrak_kerja) }}"
+                                                            class="btn btn-primary text-end" target="_blank">Lihat Kontrak
+                                                            kerja</a>
+                                                    </div>
+                                                </div>
+                                            </div>
                                             <div class="col-md-12">
                                                 <div class="form-group form-group-default">
-                                                    <label>Divisi</label>
-                                                    <input type="text" class="form-control" name="divisi_id"
-                                                        value="{{ $user->divisi->nama_divisi }}" readonly>
+                                                    <button type="submit" class="btn btn-success w-100">UPDATE</button>
                                                 </div>
                                             </div>
-                                        </div>
-                                        <div class="row mt-3">
-                                            <div class="col-md-6">
-                                                <div class="form-group form-group-default">
-                                                    <label>Name</label>
-                                                    <input type="text" class="form-control" name="name"
-                                                        placeholder="Name" value="{{ $user->name }}">
-                                                </div>
-                                            </div>
-                                            <div class="col-md-6">
-                                                <div class="form-group form-group-default">
-                                                    <label>Email</label>
-                                                    <input type="email" class="form-control" name="email"
-                                                        placeholder="Name" value="{{ $user->email }}">
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="row mt-3">
-                                            <div class="col-md-4">
-                                                <div class="form-group form-group-default">
-                                                    <label>Tanggal Lahir</label>
-                                                    <input type="date" class="form-control" id="tanggal_lahir"
-                                                        name="tanggal_lahir" value="{{ $user->tanggal_lahir }}">
-                                                </div>
-                                            </div>
-                                            <div class="col-md-4">
-                                                <div class="form-group form-group-default">
-                                                    <label>Gender</label>
-                                                    <select class="form-control" id="jenis_kelamin" name="jenis_kelamin">
-                                                        <option selected value="{{ $user->jenis_kelamin }}">
-                                                            {{ $user->jenis_kelamin }}</option>
-                                                        <option value="laki-laki">Laki-laki</option>
-                                                        <option value="perempuan">perempuan</option>
-                                                    </select>
-                                                </div>
-                                            </div>
-                                            <div class="col-md-4">
-                                                <div class="form-group form-group-default">
-                                                    <label>Phone</label>
-                                                    <input type="text" class="form-control" value="{{ $user->no_hp }}"
-                                                        name="no_hp" placeholder="no_hp">
-                                                </div>
-                                            </div>
-                                            <div class="col-md-4">
-                                                <div class="form-group form-group-default">
-                                                    <label>Agama</label>
-                                                    <select name="agama" class="form-control">
-                                                        <option value="{{ $user->agama }}" selected>{{ $user->agama }}
-                                                        </option>
-                                                        <option value="islam">Islam</option>
-                                                        <option value="kristen">kristen</option>
-                                                        <option value="hindu">hindu</option>
-                                                        <option value="budha">budha</option>
-                                                    </select>
-                                                </div>
-                                            </div>
-                                            <div class="col-md-4">
-                                                <div class="form-group form-group-default">
-                                                    <label>Gol Darah</label>
-                                                    <input type="text" class="form-control"
-                                                        value="{{ $user->gol_darah }}" name="gol_darah"
-                                                        placeholder="gol_darah">
-                                                </div>
-                                            </div>
-                                            <div class="col-md-4">
-                                                <div class="form-group form-group-default">
-                                                    <label>Alamat Domisili</label>
-                                                    <input type="text" class="form-control"
-                                                        value="{{ $user->alamat_domisili }}" name="alamat_domisili"
-                                                        placeholder="alamat_domisili">
-                                                </div>
-                                            </div>
-                                            <div class="col-md-4">
-                                                <div class="form-group form-group-default">
-                                                    <label>Status Pernikahan</label>
-                                                    <input type="text" class="form-control" id="status_pernikahan"
-                                                        name="status_pernikahan" value="{{ $user->status_pernikahan }}"
-                                                        placeholder="status_pernikahan" readonly>
-                                                </div>
-                                            </div>
-                                            <div class="col-md-4">
-                                                <div class="form-group form-group-default">
-                                                    <label>Status Karyawan</label>
-                                                    <input type="text" class="form-control" id="status_karyawan"
-                                                        name="status_karyawan" value="{{ $user->status_karyawan }}"
-                                                        placeholder="status_karyawan" readonly>
-                                                </div>
-                                            </div>
-                                            <div class="col-md-4">
-                                                <div class="form-group form-group-default">
-                                                    <label>Jabatan</label>
-                                                    <input type="text" class="form-control"
-                                                        value="{{ $user->type }}" name="type" placeholder="type"
-                                                        readonly>
-                                                </div>
-                                            </div>
-                                            <div class="col-md-4">
-                                                <div class="form-group form-group-default">
-                                                    <label>Gaji Karyawan</label>
-                                                    <input type="text" class="form-control"
-                                                        value="{{ $user->gaji }}" name="gaji" placeholder="gaji"
-                                                        readonly>
-                                                </div>
-                                            </div>
-                                            <div class="col-md-4">
-                                                <div class="form-group form-group-default">
-                                                    <label>Uang Makan</label>
-                                                    <input type="text" class="form-control"
-                                                        value="{{ $user->uang_makan }}" name="uang_makan"
-                                                        placeholder="uang_makan" readonly>
-                                                </div>
-                                            </div>
-                                            <div class="col-md-4">
-                                                <div class="form-group form-group-default">
-                                                    <label>Uang transport</label>
-                                                    <input type="text" class="form-control"
-                                                        value="{{ $user->uang_transport }}" name="uang_transport"
-                                                        placeholder="uang_transport" readonly>
-                                                </div>
-                                            </div>
-                                            <div class="col-md-4">
-                                                <div class="form-group form-group-default">
-                                                    <label>Mulai Kerja</label>
-                                                    <input type="text" class="form-control"
-                                                        value="{{ $user->mulai_kerja }}" name="mulai_kerja"
-                                                        placeholder="mulai_kerja" readonly>
-                                                </div>
-                                            </div>
-                                            <div class="col-md-4">
-                                                <div class="form-group form-group-default">
-                                                    <label>Akhir Kerja</label>
-                                                    <input type="text" class="form-control"
-                                                        value="{{ $user->akhir_kerja }}" name="akhir_kerja"
-                                                        placeholder="akhir_kerja" readonly>
-                                                </div>
-                                            </div>
-                                            <div class="col-md-4">
-                                                <div class="form-group form-group-default">
-                                                    <label>Tunjangan Lain - lain</label>
-                                                    <input type="text" class="form-control"
-                                                        value="{{ $user->tunjangan_lain }}" name="tunjangan_lain"
-                                                        placeholder="tunjangan_lain" readonly>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="row d-flex">
-                                            <div class="col-md-8">
-                                                <div class="form-group form-group-default">
-                                                    @if ($user->foto_karyawan)
-                                                        <label for="">UPDATE FOTO KARYAWAN</label>
-                                                        <img src="{{ asset('foto_karyawan/' . $user->foto_karyawan) }}"
-                                                            class="img-fluid" style="width: 200px;">
-                                                        <input type="file" class="form-control" name="foto_karyawan"
-                                                            value="{{ $user->foto_karyawan }}">
-                                                    @else
-                                                        <label for="">UPLOAD FOTO KARYAWAN</label>
-                                                        <input type="file" class="form-control" name="foto_karyawan">
-                                                    @endif
-                                                </div>
-                                            </div>
-                                            <div class="col-md-4">
-                                                <div class="form-group form-group-default">
-                                                    <input type="hidden" class="form-control"
-                                                        value="{{ $user->kontrak_kerja }}" name="kontrak_kerja">
-                                                    <a href="{{ asset('kontrak_kerja/' . $user->kontrak_kerja) }}"
-                                                        class="btn btn-primary text-end" target="_blank">Lihat Kontrak
-                                                        kerja</a>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="col-md-12">
-                                            <div class="form-group form-group-default">
-                                                <button type="submit" class="btn btn-success w-100">UPDATE</button>
-                                            </div>
-                                        </div>
-                                    </form>
+                                        </form>
+                                    </div>
                                     <div class="tab-pane fade" id="pills-profile-icon" role="tabpanel"
                                         aria-labelledby="pills-profile-tab-icon">
                                         @if ($pendidikans->isEmpty())

@@ -214,23 +214,22 @@
 
         <!-- Sidebar -->
         <div class="sidebar">
+            @php
+                $userId = Auth::id();
 
+                $userData = DB::table('users')->where('id', $userId)->first();
+            @endphp
             <div class="sidebar-background"></div>
             <div class="sidebar-wrapper scrollbar-inner">
                 <div class="sidebar-content">
                     <div class="user">
                         <div class="avatar-sm float-left mr-2">
-                            <img src="{{ asset('user.png') }}" alt="..." class="avatar-img rounded-circle">
+                            <img src="{{ asset('foto_karyawan/' . $userData->foto_karyawan) }}" alt="..."
+                                class="avatar-img rounded-circle">
                         </div>
                         <div class="info">
                             <a data-toggle="collapse" href="#collapseExample" aria-expanded="true">
                                 <span>
-                                    @php
-                                        $userId = Auth::id();
-
-                                        $userData = DB::table('users')->where('id', $userId)->first();
-                                    @endphp
-
                                     <span class="user-level">
                                         <h3>{{ $userData->name }}</h3>
                                     </span>

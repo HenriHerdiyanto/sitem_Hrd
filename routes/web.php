@@ -247,6 +247,9 @@ Route::middleware(['auth', 'user-access:manager'])->group(function () {
     Route::get('/manager/profile', [App\Http\Controllers\HomeController::class, 'Profile'])->name('manager.profile');
     Route::get('/manager/edit/{id}', [App\Http\Controllers\HomeController::class, 'mangerEdit'])->name('manager.edit');
 
+    // profile
+    Route::put('/manager/update/profile/{id}', [App\Http\Controllers\HomeController::class, 'updateProfileManager'])->name('manager.update.Profile');
+
     // pendidikan
     Route::post('/manager/pendidikan/store', [App\Http\Controllers\PendidikanController::class, 'store'])->name('manager.pendidikan.store');
     Route::put('/manager/pendidikan/update/{id}', [App\Http\Controllers\PendidikanController::class, 'update'])->name('manager.pendidikan.update');
