@@ -240,6 +240,14 @@
                                                 value="{{ date('Y-m-d') }}" readonly>
                                         </div>
                                         <div class="mb-3">
+                                            <label for="" class="text-white">Tanggal izin</label>
+                                            <input type="text" name="tanggal_izin" class="form-control">
+                                        </div>
+                                        <div class="mb-3">
+                                            <label for="" class="text-white">Sampai Tanggal</label>
+                                            <input type="text" name="tanggal_akhir" class="form-control">
+                                        </div>
+                                        <div class="mb-3">
                                             <label for="" class="text-white">Alasan IZIN</label>
                                             <textarea name="keterangan" class="form-control" cols="30" rows="10"></textarea>
                                             <input type="hidden" class="form-control" name="izin" readonly
@@ -392,9 +400,11 @@
         function updateTerlambatStatus() {
             const currentTime = new Date();
             const hours = currentTime.getHours();
+            const minutes = currentTime.getMinutes();
             const thresholdHour = 8; // Jam 08:00
+            const thresholdMinute = 36; // Menit 36
 
-            if (hours >= thresholdHour) {
+            if (hours > thresholdHour || (hours === thresholdHour && minutes >= thresholdMinute)) {
                 document.getElementById('terlambat').value = 1;
             } else {
                 document.getElementById('terlambat').value = 0;

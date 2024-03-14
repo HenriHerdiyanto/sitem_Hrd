@@ -1,9 +1,19 @@
 @extends('layouts.manager')
-
+@php
+    $activePage = 'dashboard'; // Anda bisa mengubah nilai ini sesuai dengan halaman yang aktif
+@endphp
 @section('content')
     <div class="main-panel">
         <div class="content">
             <div class="page-inner">
+                @if (session('success'))
+                    <div class="alert alert-success" id="success-alert">
+                        {{ session('success') }}
+                        <button type="button" class="close" onclick="closeAlert()">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                @endif
                 <div class="row">
                     <div class="col-md-8">
                         <div class="card">
@@ -44,7 +54,7 @@
                                         <form action="{{ route('manager.update.Profile', $user->id) }}" method="post"
                                             enctype="multipart/form-data">
                                             @csrf
-                                            @method('put')
+                                            @method('PUT')
                                             <div class="row mt-3">
                                                 <div class="col-md-12">
                                                     <div class="form-group form-group-default">
@@ -55,18 +65,25 @@
                                                 </div>
                                             </div>
                                             <div class="row mt-3">
-                                                <div class="col-md-6">
+                                                <div class="col-md-4">
                                                     <div class="form-group form-group-default">
                                                         <label>Name</label>
                                                         <input type="text" class="form-control" name="name"
                                                             placeholder="Name" value="{{ $user->name }}">
                                                     </div>
                                                 </div>
-                                                <div class="col-md-6">
+                                                <div class="col-md-4">
                                                     <div class="form-group form-group-default">
                                                         <label>Email</label>
                                                         <input type="email" class="form-control" name="email"
-                                                            placeholder="Name" value="{{ $user->email }}">
+                                                            placeholder="Email" value="{{ $user->email }}">
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-4">
+                                                    <div class="form-group form-group-default">
+                                                        <label>New Password</label>
+                                                        <input type="password" class="form-control" name="password"
+                                                            placeholder="New Password">
                                                     </div>
                                                 </div>
                                             </div>
@@ -75,14 +92,15 @@
                                                     <div class="form-group form-group-default">
                                                         <label>Tanggal Lahir</label>
                                                         <input type="date" class="form-control" id="tanggal_lahir"
-                                                            name="tanggal_lahir" value="{{ $user->tanggal_lahir }}">
+                                                            name="tanggal_lahir" value="{{ $user->tanggal_lahir }}"
+                                                            required>
                                                     </div>
                                                 </div>
                                                 <div class="col-md-4">
                                                     <div class="form-group form-group-default">
                                                         <label>Gender</label>
-                                                        <select class="form-control" id="jenis_kelamin"
-                                                            name="jenis_kelamin">
+                                                        <select class="form-control" id="jenis_kelamin" name="jenis_kelamin"
+                                                            required>
                                                             <option selected value="{{ $user->jenis_kelamin }}">
                                                                 {{ $user->jenis_kelamin }}</option>
                                                             <option value="laki-laki">Laki-laki</option>
@@ -94,15 +112,21 @@
                                                     <div class="form-group form-group-default">
                                                         <label>Phone</label>
                                                         <input type="text" class="form-control"
-                                                            value="{{ $user->no_hp }}" name="no_hp" placeholder="no_hp">
+                                                            value="{{ $user->no_hp }}" name="no_hp"
+                                                            placeholder="Masukan Nomor HP" required>
                                                     </div>
                                                 </div>
                                                 <div class="col-md-4">
                                                     <div class="form-group form-group-default">
                                                         <label>Agama</label>
-                                                        <select name="agama" class="form-control">
-                                                            <option value="{{ $user->agama }}" selected>{{ $user->agama }}
-                                                            </option>
+                                                        <select name="agama" class="form-control" required>
+                                                            @if ($user->agama)
+                                                                <option value="{{ $user->agama }}" selected>
+                                                                    {{ $user->agama }}
+                                                                </option>
+                                                            @else
+                                                                <option selected>--- PILIH ---</option>
+                                                            @endif
                                                             <option value="islam">Islam</option>
                                                             <option value="kristen">kristen</option>
                                                             <option value="hindu">hindu</option>
@@ -115,7 +139,7 @@
                                                         <label>Gol Darah</label>
                                                         <input type="text" class="form-control"
                                                             value="{{ $user->gol_darah }}" name="gol_darah"
-                                                            placeholder="gol_darah">
+                                                            placeholder="gol_darah" required>
                                                     </div>
                                                 </div>
                                                 <div class="col-md-4">
@@ -123,7 +147,7 @@
                                                         <label>Alamat Domisili</label>
                                                         <input type="text" class="form-control"
                                                             value="{{ $user->alamat_domisili }}" name="alamat_domisili"
-                                                            placeholder="alamat_domisili">
+                                                            placeholder="alamat_domisili" required>
                                                     </div>
                                                 </div>
                                                 <div class="col-md-4">
@@ -132,7 +156,7 @@
                                                         <input type="text" class="form-control" id="status_pernikahan"
                                                             name="status_pernikahan"
                                                             value="{{ $user->status_pernikahan }}"
-                                                            placeholder="status_pernikahan" readonly>
+                                                            placeholder="Menikah / Belum Menikah" required>
                                                     </div>
                                                 </div>
                                                 <div class="col-md-4">
@@ -194,9 +218,40 @@
                                                 <div class="col-md-4">
                                                     <div class="form-group form-group-default">
                                                         <label>Tunjangan Lain - lain</label>
+                                                        @if ($user->tunjangan_lain)
+                                                            <input type="text" class="form-control"
+                                                                value="{{ $user->tunjangan_lain }}" name="tunjangan_lain"
+                                                                placeholder="tunjangan_lain" readonly>
+                                                        @else
+                                                            <input type="text" class="form-control" value="0"
+                                                                name="tunjangan_lain" readonly>
+                                                        @endif
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-4">
+                                                    <div class="form-group form-group-default">
+                                                        <label>Tunjangan Jabatan</label>
                                                         <input type="text" class="form-control"
-                                                            value="{{ $user->tunjangan_lain }}" name="tunjangan_lain"
-                                                            placeholder="tunjangan_lain" readonly>
+                                                            value="{{ $user->tunjangan_jabatan }}"
+                                                            name="tunjangan_jabatan" placeholder="tunjangan_jabatan"
+                                                            readonly>
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-4">
+                                                    <div class="form-group form-group-default">
+                                                        <label>Tunjangan Pulsa</label>
+                                                        <input type="text" class="form-control"
+                                                            value="{{ $user->tunjangan_pulsa }}" name="tunjangan_pulsa"
+                                                            placeholder="tunjangan_pulsa" readonly>
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-4">
+                                                    <div class="form-group form-group-default">
+                                                        <label>Tunjangan Pendidikan</label>
+                                                        <input type="text" class="form-control"
+                                                            value="{{ $user->tunjangan_pendidikan }}"
+                                                            name="tunjangan_pendidikan" placeholder="tunjangan_pendidikan"
+                                                            readonly>
                                                     </div>
                                                 </div>
                                             </div>
@@ -212,23 +267,23 @@
                                                         @else
                                                             <label for="">UPLOAD FOTO KARYAWAN</label>
                                                             <input type="file" class="form-control"
-                                                                name="foto_karyawan">
+                                                                name="foto_karyawan" required>
                                                         @endif
                                                     </div>
                                                 </div>
                                                 <div class="col-md-4">
                                                     <div class="form-group form-group-default">
                                                         @if ($user->kontrak_kerja)
-                                                            <input type="hidden" class="form-control"
-                                                                value="{{ $user->kontrak_kerja }}" name="kontrak_kerja">
                                                             <a href="{{ asset('kontrak_kerja/' . $user->kontrak_kerja) }}"
                                                                 class="btn btn-primary text-end" target="_blank">Lihat
                                                                 Kontrak
                                                                 kerja</a>
                                                         @else
-                                                            <h1><span class="badge bg-warning">Belum ada Kontrak
-                                                                    Kerja</span></h1>
+                                                            <h3><span class="badge bg-warning">Belum ada Kontrak
+                                                                    Kerja</span></h3>
                                                         @endif
+                                                        <input type="hidden" class="form-control"
+                                                            value="{{ $user->kontrak_kerja }}" name="kontrak_kerja">
                                                     </div>
                                                 </div>
                                             </div>
@@ -242,7 +297,7 @@
                                     <div class="tab-pane fade" id="pills-profile-icon" role="tabpanel"
                                         aria-labelledby="pills-profile-tab-icon">
                                         @if ($pendidikans->isEmpty())
-                                            <form action="{{ route('manager.pendidikan.store') }}" method="post">
+                                            <form action="{{ route('user.pendidikan.store') }}" method="post">
                                                 @csrf
                                                 @method('post')
                                                 <div class="row mt-3">
@@ -296,7 +351,7 @@
                                             </form>
                                         @else
                                             @foreach ($pendidikans as $data)
-                                                <form action="{{ route('manager.pendidikan.update', $data->id) }}"
+                                                <form action="{{ route('user.pendidikan.update', $data->id) }}"
                                                     method="post">
                                                     @csrf
                                                     @method('put')
@@ -309,6 +364,7 @@
                                                                 <input type="text" class="form-control"
                                                                     value="{{ $user->name }}">
                                                             </div>
+
                                                             <div class="form-group form-group-default">
                                                                 <label>Instansi Pendidikan</label>
                                                                 <input type="text" class="form-control"
@@ -363,7 +419,7 @@
                                     <div class="tab-pane fade" id="pills-contact-icon" role="tabpanel"
                                         aria-labelledby="pills-contact-tab-icon">
                                         @if ($keluargas->isEmpty())
-                                            <form action="{{ route('manager.keluarga.store') }}" method="post">
+                                            <form action="{{ route('user.keluarga.store') }}" method="post">
                                                 @csrf
                                                 <div class="row mt-3">
                                                     <div class="col-md-6">
@@ -405,9 +461,9 @@
                                                                 name="jabatan_ayah">
                                                         </div>
                                                         <div class="form-group form-group-default">
-                                                            {{-- <label>Nama Perusahaan Ayah</label> --}}
-                                                            <input type="hidden" class="form-control"
-                                                                name="perusahaan_ayah" value="none">
+                                                            <label>Nama Perusahaan Ayah</label>
+                                                            <input type="text" class="form-control"
+                                                                name="perusahaan_ayah">
                                                         </div>
                                                     </div>
                                                     <div class="col-md-6">
@@ -442,9 +498,9 @@
                                                                 name="jabatan_ibu">
                                                         </div>
                                                         <div class="form-group form-group-default">
-                                                            {{-- <label>Nama Perusahaan IBU</label> --}}
-                                                            <input type="hidden" class="form-control"
-                                                                name="perusahaan_ibu" value="none">
+                                                            <label>Nama Perusahaan IBU</label>
+                                                            <input type="text" class="form-control"
+                                                                name="perusahaan_ibu">
                                                         </div>
                                                         <button type="submit" id="alert_demo_3_3"
                                                             class="btn btn-primary w-100">SUBMIT</button>
@@ -453,7 +509,7 @@
                                             </form>
                                         @else
                                             @foreach ($keluargas as $data)
-                                                <form action="{{ route('manager.keluarga.update', $data->id) }}"
+                                                <form action="{{ route('user.keluarga.update', $data->id) }}"
                                                     method="post">
                                                     @csrf
                                                     @method('put')
@@ -502,8 +558,8 @@
                                                                     value="{{ $data->jabatan_ayah }}">
                                                             </div>
                                                             <div class="form-group form-group-default">
-                                                                {{-- <label>Nama Perusahaan Ayah</label> --}}
-                                                                <input type="hidden" class="form-control"
+                                                                <label>Nama Perusahaan Ayah</label>
+                                                                <input type="text" class="form-control"
                                                                     name="perusahaan_ayah"
                                                                     value="{{ $data->perusahaan_ayah }}">
                                                             </div>
@@ -544,8 +600,8 @@
                                                                     name="jabatan_ibu" value="{{ $data->jabatan_ibu }}">
                                                             </div>
                                                             <div class="form-group form-group-default">
-                                                                {{-- <label>Nama Perusahaan IBU</label> --}}
-                                                                <input type="hidden" class="form-control"
+                                                                <label>Nama Perusahaan IBU</label>
+                                                                <input type="text" class="form-control"
                                                                     name="perusahaan_ibu"
                                                                     value="{{ $data->perusahaan_ibu }}">
                                                             </div>
@@ -566,12 +622,8 @@
                             <div class="card-header" style="background-image: url('../assets/img/blogpost.jpg')">
                                 <div class="profile-picture">
                                     <div class="avatar avatar-xl">
-                                        @if ($user->foto_karyawan == null)
-                                            <h2 class="text-center">Belum Update Foto</h2>
-                                        @else
-                                            <img
-                                                src="{{ asset('foto_karyawan/' . $user->foto_karyawan) }}"class="avatar-img rounded-circle">
-                                        @endif
+                                        <img src="{{ asset('foto_karyawan/' . $user->foto_karyawan) }}" alt="..."
+                                            class="avatar-img rounded-circle">
                                     </div>
                                 </div>
                             </div>
@@ -623,4 +675,10 @@
     </div>
 
     </div>
+    <script>
+        function closeAlert() {
+            var alert = document.getElementById('success-alert');
+            alert.style.display = 'none';
+        }
+    </script>
 @endsection

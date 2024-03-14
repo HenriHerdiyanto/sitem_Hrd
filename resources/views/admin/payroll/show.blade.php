@@ -331,25 +331,25 @@
                                             <div class="mb-3">
                                                 <label for="cuti_bersama" class="form-label">Cuti Bersama</label>
                                                 <input type="text" class="form-control nilai-input4"
-                                                    name="cuti_bersama" value="0" required readonly>
+                                                    name="cuti_bersama" value="0" required>
                                             </div>
                                             <div class="mb-3">
                                                 <label for="cuti" class="form-label">Potongan CUTI
-                                                    ( {{ $totalcuti }} )</label>
-                                                <input type="text" class="form-control nilai-input4" id="cuti"
-                                                    name="cuti" required readonly>
+                                                    ( {{ $total_cuti }} )</label>
+                                                <input type="text" class="form-control nilai-input4" name="cuti"
+                                                    value="{{ $totalcuti }}" required readonly>
                                             </div>
                                             <div class="mb-3">
                                                 <label for="izin" class="form-label">IZIN
-                                                    ({{ $totalizin }})</label>
+                                                    ( {{ $total_izin }} )</label>
                                                 <input type="text" class="form-control nilai-input4" name="izin"
                                                     value="{{ $totalizin }}" required readonly>
                                             </div>
                                             <div class="mb-3">
                                                 <label for="sakit" class="form-label">SAKIT
-                                                    ({{ $totalsakit }})</label>
+                                                    ({{ $total_sakit }})</label>
                                                 <input type="text" class="form-control nilai-input4" name="sakit"
-                                                    id="potongan_sakit" required readonly>
+                                                    id="potongan_sakit" value="{{ $totalsakit }}" required>
                                             </div>
                                             <div class="mb-3">
                                                 <label for="alpha" class="form-label">Potongan Alpha
@@ -375,14 +375,16 @@
                                                     Ditanggung
                                                     Karyawan 1%</label>
                                                 <input type="text" class="form-control nilai-input4"
-                                                    name="bpjs_karyawan" value="50673" required readonly>
+                                                    name="bpjs_karyawan" value="{{ $bpjs_kesehatan1 }}" required
+                                                    readonly>
                                             </div>
                                             <div class="mb-3">
                                                 <label for="ditanggung_karyawan" class="form-label">BPJS
                                                     KETENAGAKERJAAN
                                                     Ditanggung Karyawan 2.00%</label>
                                                 <input type="text" class="form-control nilai-input4"
-                                                    name="ditanggung_karyawan" value="101347" required readonly>
+                                                    name="ditanggung_karyawan" value="{{ $bpjs_ketenagakerjaan }}"
+                                                    required readonly>
                                             </div>
                                             <div class="mb-3">
                                                 <label for="total_pengurangan" class="form-label">TOTAL
@@ -560,45 +562,8 @@
         }
     </script>
 
-    {{-- potongan cuti --}}
-    <script>
-        // Mengambil elemen-elemen HTML
-        const uangMakanInput = document.getElementById("uang_makan");
-        const totalCutiInput = document.getElementById("total_cuti");
-        const cutiInput = document.getElementById("cuti");
 
-        // Fungsi untuk menghitung potongan CUTI
-        function hitungPotonganCuti() {
-            const uangMakan = parseFloat(uangMakanInput.value);
-            const totalCuti = parseFloat(totalCutiInput.value);
 
-            if (!isNaN(uangMakan) && !isNaN(totalCuti)) {
-                const potonganCuti = (uangMakan / 22) * totalCuti;
-                cutiInput.value = potonganCuti.toFixed(); // Menampilkan hasil dengan 2 desimal
-            } else {
-                cutiInput.value = ""; // Mengosongkan input jika salah satu input tidak valid
-            }
-        }
-        // Memanggil fungsi hitungPotonganCuti saat halaman dimuat
-        window.addEventListener("load", hitungPotonganCuti);
-    </script>
-
-    {{-- potongan sakit --}}
-    <script>
-        // Tunggu sampai halaman HTML selesai dimuat
-        document.addEventListener("DOMContentLoaded", function() {
-            // Ambil nilai dari elemen dengan id="uang_makan", "uang_transport", dan "total_sakit"
-            var uangMakan = parseFloat(document.getElementById("uang_makan").value);
-            var uangTransport = parseFloat(document.getElementById("uang_transport").value);
-            var totalSakit = parseFloat(document.getElementById("total_sakit").value);
-
-            // Lakukan perhitungan dan bulatkan ke bawah ke angka bulat terdekat
-            var potonganSakit = Math.floor(((uangMakan / 2 + uangTransport) / 22) * totalSakit);
-
-            // Tempatkan hasil perhitungan di elemen dengan id="potongan_sakit"
-            document.getElementById("potongan_sakit").value = potonganSakit;
-        });
-    </script>
 
     {{-- potongan alpha --}}
     <script>

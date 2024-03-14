@@ -138,7 +138,7 @@
                                             <div class="mb-3">
                                                 <label for="email" class="form-label">Email</label>
                                                 <input type="email" class="form-control" id="email"
-                                                    value="{{ $user->email }}" name="email" required>
+                                                    value="{{ $user->email }}" name="email">
                                             </div>
                                         </div>
                                         <div class="col-md-6">
@@ -149,7 +149,7 @@
                                             </div> --}}
                                             <div class="mb-3">
                                                 <label for="type" class="form-label">Jabatan Karyawan</label>
-                                                <select class="form-control" id="type" name="type" required>
+                                                <select class="form-control" id="type" name="type">
                                                     @if ($user->type == 'user')
                                                         <option value="0" selected> {{ $user->type }}</option>
                                                         <option value="2"> Manager</option>

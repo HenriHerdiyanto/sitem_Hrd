@@ -248,7 +248,7 @@
 
 
                                     <span class="user-level">
-                                        <h3>{{ $userData->jenis_kelamin }}</h3>
+                                        <h3>{{ $userData->name }}</h3>
                                     </span>
 
                                     <span class="caret"></span>

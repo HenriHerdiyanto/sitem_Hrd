@@ -16,6 +16,8 @@ return new class extends Migration
             $table->unsignedBigInteger('user_id')->nullable();
             $table->string('name')->nullable();
             $table->date('tanggal')->nullable();
+            $table->date('tanggal_izin')->nullable();
+            $table->date('tanggal_akhir')->nullable();
             $table->time('waktu_masuk')->nullable();
             $table->time('waktu_keluar')->nullable();
             $table->string('barcode')->nullable();

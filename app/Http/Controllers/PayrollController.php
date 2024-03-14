@@ -210,17 +210,28 @@ class PayrollController extends Controller
 
         $totalterlambat = ($absen->sum('terlambat') ?? 0) * 50000;
 
-        // Menghitung total izin
-        $totalizin = ($absen->sum('izin') ?? 0) * 50000;
+        // Menghitung total potongan izin
+        $total_izin = $absen->sum('total_izin') ?? 0;
+        $gaji_per_hari = $user->gaji / 22;
+        $uang_makan_per_hari = $user->uang_makan / 22;
+        $gabungan = $gaji_per_hari + $uang_makan_per_hari;
+        $totalizin = intval($total_izin * $gabungan); // Menggunakan intval() untuk membulatkan ke bilangan bulat terdekat
+
+        // dd($totalizin);
 
         // Menghitung total sakit
-        $totalsakit = ($user->absen->sum('sakit') ?? 0) * 50000;
+        $total_sakit = $user->absen->sum('sakit') ?? 0;
+        $potongan_makan = $user->uang_makan / 2;
+        $potong_lagi = $potongan_makan / 22;
+        $uang_transport = $user->uang_transport / 22;
+        $total_potong_sakit = $potong_lagi + $uang_transport;
+        $totalsakit = intval($total_sakit * $total_potong_sakit); // Menggunakan intval() untuk membulatkan ke bilangan bulat terdekat
 
-
-        // Menghitung jumlah hadir dan alpha
+        // Menghitung jumlah hadir, izin, sakit, dan alpha
         $jumlah_hadir = $absen->count();
-        $jumlah_alpha = 22 - $jumlah_hadir;
-
+        $total_izin_sakit = $total_izin + $total_sakit;
+        $jumlah_alpha = 22 - $jumlah_hadir - $total_izin_sakit;
+        // dd($jumlah_alpha);
         // Mencari history bayar
         $historyBayar = HistoryBayar::find($id);
         $jmlhBayar = 0;
@@ -259,9 +270,15 @@ class PayrollController extends Controller
         $totalLembur = ($user->lemburs->where('status', 'diterima')->sum('total_lembur') ?? 0) * 50000;
         $lamaLembur = $user->lemburs->where('status', 'diterima')->sum('total_lembur');
         // Menghitung total cuti
-        $totalcuti = $user->cuti->sum('ambil_cuti');
+        $total_cuti = $user->cuti->sum('ambil_cuti');
+        $potongan_cuti = $user->uang_makan / 22;
+        $totalcuti = $total_cuti * $potongan_cuti;
 
-        return view("admin.payroll.show", compact("user", "absen", "lamaLembur", "totalcuti", "totalLembur", "totalterlambat", "totalizin", "jumlah_hadir", "jumlah_alpha", "jmlhBayar", "totalsakit", "tterlambat"));
+        $bpjs_kesehatan1 = 1 * $user->gaji / 100;
+        $bpjs_ketenagakerjaan = 2 * $user->gaji / 100;
+        // dd($bpjs_ketenagakerjaan);
+
+        return view("admin.payroll.show", compact("user", "absen", "lamaLembur", "totalcuti", "totalLembur", "totalterlambat", "totalizin", "jumlah_hadir", "jumlah_alpha", "jmlhBayar", "totalsakit", "tterlambat", "total_izin", "total_sakit", "potongan_cuti", "total_cuti", "bpjs_kesehatan1", "bpjs_ketenagakerjaan"));
     }
 
 

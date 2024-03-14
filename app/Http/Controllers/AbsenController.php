@@ -49,6 +49,9 @@ class AbsenController extends Controller
             "user_id" => "required",
             "name" => "required",
             "tanggal" => "required",
+            "tanggal_izin" => "required",
+            "tanggal_akhir" => "required",
+            "total_izin" => "required",
             "izin" => "required",
             "keterangan" => "required",
         ]);
@@ -57,6 +60,9 @@ class AbsenController extends Controller
         $absen->user_id = $validateData['user_id'];
         $absen->name = $validateData['name'];
         $absen->tanggal = $validateData['tanggal'];
+        $absen->tanggal_izin = $validateData['tanggal_izin'];
+        $absen->tanggal_akhir = $validateData['tanggal_akhir'];
+        $absen->total_izin = $validateData['total_izin'];
         $absen->izin = $validateData['izin'];
         $absen->keterangan = $validateData['keterangan'];
         $absen->save();
@@ -122,7 +128,7 @@ class AbsenController extends Controller
         $absenData = Absen::whereMonth('tanggal', $bulan)
             ->whereYear('tanggal', $tahun)
             ->orderBy('tanggal', 'desc') // Urutkan berdasarkan tanggal secara menurun
-            ->take(1) // Ambil hanya satu data
+            // ->take(1)
             ->get();
 
         return view('admin.absen.show', compact('absenData', 'bulan', 'tahun'));

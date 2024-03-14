@@ -3,37 +3,31 @@
     <div class="main-panel">
         <div class="content">
             <div class="page-inner">
+                @if (session('success'))
+                    <div class="alert alert-success" id="success-alert">
+                        {{ session('success') }}
+                        <button type="button" class="close" onclick="closeAlert()">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                @endif
+                @if (session('update'))
+                    <div class="alert alert-success" id="update-alert">
+                        {{ session('update') }}
+                        <button type="button" class="close" onclick="closeAlertUpdate()">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                @endif
+                @if (session('delete'))
+                    <div class="alert alert-danger" id="delete-alert">
+                        {{ session('delete') }}
+                        <button type="button" class="close" onclick="closeAlertDelete()">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                @endif
                 <div class="row">
-                    @if (session('success'))
-                        <div class="col-md-12">
-                            <div class="alert alert-primary alert-dismissible fade show" role="alert">
-                                {{ session('success') }}
-                                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"><i
-                                        class="fas fa-window-close"></i></button>
-                            </div>
-                        </div>
-                    @endif
-
-                    @if (session('update'))
-                        <div class="col-md-12">
-                            <div class="alert alert-primary alert-dismissible fade show d-flex align-items-center justify-content-between"
-                                role="alert">
-                                <div>{{ session('update') }}</div>
-                                <button type="button" class="btn-close" data-bs-dismiss="alert"
-                                    aria-label="Close"></button>
-                            </div>
-                        </div>
-                    @endif
-
-                    @if (session('delete'))
-                        <div class="col-md-12">
-                            <div class="alert alert-primary alert-dismissible fade show" role="alert">
-                                {{ session('delete') }}
-                                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"><i
-                                        class="fas fa-window-close"></i></button>
-                            </div>
-                        </div>
-                    @endif
                     <div class="col-md-12">
                         <div class="card">
                             <div class="card-header">
@@ -132,4 +126,20 @@
             </div>
         </div>
     </div>
+    <script>
+        function closeAlert() {
+            var alert = document.getElementById('success-alert');
+            alert.style.display = 'none';
+        }
+
+        function closeAlertUpdate() {
+            var alert = document.getElementById('update-alert');
+            alert.style.display = 'none';
+        }
+
+        function closeAlertDelete() {
+            var alert = document.getElementById('delete-alert');
+            alert.style.display = 'none';
+        }
+    </script>
 @endsection

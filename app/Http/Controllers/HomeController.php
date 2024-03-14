@@ -111,7 +111,7 @@ class HomeController extends Controller
     public function store(Request $request)
     {
         $validatedData = $request->validate([
-            'divisi_id' => 'nullable',
+            'divisi_id' => 'required',
             'nomor_induk' => 'nullable',
             'name' => 'nullable',
             'jenis_kelamin' => 'nullable',
@@ -120,15 +120,14 @@ class HomeController extends Controller
             'alamat_ktp' => 'nullable',
             'alamat_domisili' => 'nullable',
             'no_hp' => 'nullable',
-            'no_ktp' => 'nullable',
             'agama' => 'nullable',
             'gol_darah' => 'nullable',
             'status_pernikahan' => 'nullable',
             'status_karyawan' => 'nullable',
-            'email' => 'nullable',
-            'password' => 'nullable',
+            'email' => 'nullable|email|unique:users,email',
+            'password' => 'nullable|min:8',
             'type' => 'nullable',
-            'foto_karyawan' => 'file|image|mimes:jpeg,png,jpg|max:2048|nullable',
+            'foto_karyawan' => 'image|mimes:jpeg,png,jpg|max:2048|nullable',
             'gaji' => 'nullable',
             'uang_makan' => 'nullable',
             'uang_transport' => 'nullable',
@@ -137,21 +136,16 @@ class HomeController extends Controller
             'kontrak_kerja' => 'file|mimes:pdf,doc,docx|max:2048|nullable',
             'status_ptkp' => 'nullable',
             'cabang' => 'nullable',
-            'group_karyawan' => 'nullable',
-            'tempat_bekerja' => 'nullable',
             'tunjangan_jabatan' => 'nullable',
             'tunjangan_pulsa' => 'nullable',
             'tunjangan_pendidikan' => 'nullable',
-
+            'tunjangan_lain' => 'nullable',
         ]);
-        // Deklarasikan $nama_file sebelum penggunaannya
-        $nama_file = null;
 
-        // Tambahkan pengecekan dan penanganan file foto
+        // Penanganan file foto karyawan
+        $nama_file = null;
         if ($request->hasFile('foto_karyawan')) {
             $file = $request->file('foto_karyawan');
-
-            // Cek apakah file foto tidak kosong dan valid
             if ($file->isValid()) {
                 $nama_file = time() . "_" . $file->getClientOriginalName();
                 $tujuan_upload = 'foto_karyawan';
@@ -161,20 +155,22 @@ class HomeController extends Controller
             }
         }
 
-        // Tambahkan pengecekan dan penanganan file kontrak kerja
+        // Penanganan file kontrak kerja
         $nama_file_kontrak = null;
         if ($request->hasFile('kontrak_kerja')) {
             $file = $request->file('kontrak_kerja');
-            $nama_file_kontrak = time() . "_" . $file->getClientOriginalName();
-            $tujuan_upload = 'kontrak_kerja';
-            $file->move(public_path($tujuan_upload), $nama_file_kontrak);
-        } else {
-            return redirect()->back()->withErrors(['error' => 'Gagal upload gambar']); // Perbaiki pesan kesalahan
+            if ($file->isValid()) {
+                $nama_file_kontrak = time() . "_" . $file->getClientOriginalName();
+                $tujuan_upload = 'kontrak_kerja';
+                $file->move(public_path($tujuan_upload), $nama_file_kontrak);
+            } else {
+                return redirect()->back()->withErrors(['error' => 'Gagal upload kontrak kerja']);
+            }
         }
 
-
+        // Buat instance karyawan dan isi propertinya
         $karyawan = new User();
-        $karyawan->divisi_id = $validatedData['divisi_id'];
+        $karyawan->divisi_id = $request->input('divisi_id');
         $karyawan->nomor_induk = $validatedData['nomor_induk'];
         $karyawan->name = $validatedData['name'];
         $karyawan->jenis_kelamin = $validatedData['jenis_kelamin'];
@@ -183,19 +179,12 @@ class HomeController extends Controller
         $karyawan->alamat_ktp = $validatedData['alamat_ktp'];
         $karyawan->alamat_domisili = $validatedData['alamat_domisili'];
         $karyawan->no_hp = $validatedData['no_hp'];
-        $karyawan->no_ktp = $validatedData['no_ktp'];
         $karyawan->agama = $validatedData['agama'];
         $karyawan->gol_darah = $validatedData['gol_darah'];
         $karyawan->status_pernikahan = $validatedData['status_pernikahan'];
         $karyawan->status_karyawan = $validatedData['status_karyawan'];
         $karyawan->email = $validatedData['email'];
-
-        $password = $validatedData['password'];
-        // Hash password menggunakan bcrypt
-        $hashedPassword = Hash::make($password);
-        // Simpan password yang sudah di-hash ke dalam atribut 'password' pada objek $karyawan
-        $karyawan->password = $hashedPassword;
-
+        $karyawan->password = Hash::make($validatedData['password']);
         $karyawan->type = $validatedData['type'];
         $karyawan->foto_karyawan = $nama_file;
         $karyawan->gaji = $validatedData['gaji'];
@@ -206,22 +195,27 @@ class HomeController extends Controller
         $karyawan->kontrak_kerja = $nama_file_kontrak;
         $karyawan->status_ptkp = $validatedData['status_ptkp'];
         $karyawan->cabang = $validatedData['cabang'];
-        $karyawan->group_karyawan = $validatedData['group_karyawan'];
-        $karyawan->tempat_bekerja = $validatedData['tempat_bekerja'];
         $karyawan->tunjangan_jabatan = $validatedData['tunjangan_jabatan'];
         $karyawan->tunjangan_pulsa = $validatedData['tunjangan_pulsa'];
         $karyawan->tunjangan_pendidikan = $validatedData['tunjangan_pendidikan'];
+        $karyawan->tunjangan_lain = $validatedData['tunjangan_lain'];
+
+        // Simpan karyawan ke dalam database
         $karyawan->save();
-        // dd($user);
+
         return redirect()->route('admin.karyawan.home')->with('success', 'Data Berhasil Ditambahkan');
     }
 
+
     public function karyawanUpdate(Request $request, $id)
     {
-        $karyawan = User::find($id);
+        // Ambil data karyawan berdasarkan ID
+        $karyawan = User::findOrFail($id);
+
+        // Validasi input
         $validatedData = $request->validate([
             'divisi_id' => 'required',
-            'nomor_induk' => 'required',
+            'nomor_induk' => 'nullable',
             'name' => 'nullable',
             'jenis_kelamin' => 'nullable',
             'tempat_lahir' => 'nullable',
@@ -233,80 +227,40 @@ class HomeController extends Controller
             'gol_darah' => 'nullable',
             'status_pernikahan' => 'nullable',
             'status_karyawan' => 'nullable',
-            'email' => 'nullable',
+            'email' => 'nullable|email|unique:users,email,' . $karyawan->id,
             'type' => 'nullable',
-            'foto_karyawan' => 'file|image|mimes:jpeg,png,jpg|max:2048',
+            'foto_karyawan' => 'image|mimes:jpeg,png,jpg|max:2048|nullable',
             'gaji' => 'nullable',
             'uang_makan' => 'nullable',
             'uang_transport' => 'nullable',
             'mulai_kerja' => 'nullable',
             'akhir_kerja' => 'nullable',
-            'kontrak_kerja' => 'file|mimes:pdf,doc,docx|max:2048',
+            'kontrak_kerja' => 'file|mimes:pdf,doc,docx|max:2048|nullable',
             'status_ptkp' => 'nullable',
             'cabang' => 'nullable',
-            // 'group_karyawan' => 'nullable',
-            // 'tempat_bekerja' => 'nullable',
             'tunjangan_jabatan' => 'nullable',
             'tunjangan_pulsa' => 'nullable',
             'tunjangan_pendidikan' => 'nullable',
             'tunjangan_lain' => 'nullable',
         ]);
-        // Cek apakah ada file gambar yang diunggah
-        if ($request->hasFile('foto_karyawan')) {
-            $file = $request->file('foto_karyawan');
-            $nama_file = time() . "_" . $file->getClientOriginalName();
-            $tujuan_upload = 'foto_karyawan';
-            $file->move(public_path($tujuan_upload), $nama_file);
 
-            // Hapus foto lama jika ada
-            if ($karyawan->foto_karyawan) {
-                // Pastikan foto lama ada sebelum menghapus
-                if (file_exists(public_path('foto_karyawan/' . $karyawan->foto_karyawan))) {
-                    unlink(public_path('foto_karyawan/' . $karyawan->foto_karyawan));
-                }
-            }
-
-            // Set foto baru
-            $karyawan->foto_karyawan = $nama_file;
-        } else {
-            // Jika tidak ada file gambar yang diunggah, gunakan foto lama
-            if (!$karyawan->foto_karyawan) {
-                // Jika tidak ada foto lama, Anda dapat menangani kesalahan di sini
-                return redirect()->back()->withErrors(['error' => 'Gagal upload gambar']); // Perbaiki pesan kesalahan
-            }
-        }
-
-        // Simpan data karyawan
-        $karyawan->save();
-        // Cek apakah ada file gambar yang diunggah
+        // Proses menyimpan file kontrak kerja
         if ($request->hasFile('kontrak_kerja')) {
             $file = $request->file('kontrak_kerja');
-            $nama_file = time() . "_" . $file->getClientOriginalName();
-            $tujuan_upload = 'kontrak_kerja';
-            $file->move(public_path($tujuan_upload), $nama_file);
-
-            // Hapus foto lama jika ada
-            if ($karyawan->kontrak_kerja) {
-                // Pastikan foto lama ada sebelum menghapus
-                if (file_exists(public_path('kontrak_kerja/' . $karyawan->kontrak_kerja))) {
-                    unlink(public_path('kontrak_kerja/' . $karyawan->kontrak_kerja));
-                }
-            }
-
-            // Set foto baru
-            $karyawan->kontrak_kerja = $nama_file;
-        } else {
-            // Jika tidak ada file gambar yang diunggah, gunakan foto lama
-            if (!$karyawan->kontrak_kerja) {
-                // Jika tidak ada foto lama, Anda dapat menangani kesalahan di sini
-                return redirect()->back()->withErrors(['error' => 'Gagal upload gambar']); // Perbaiki pesan kesalahan
-            }
+            $filename = time() . '_' . $file->getClientOriginalName();
+            $file->move(public_path('kontrak_kerja'), $filename);
+            $karyawan->kontrak_kerja = $filename;
         }
 
-        // Simpan data karyawan
-        $karyawan->save();
+        // Proses menyimpan file foto karyawan
+        if ($request->hasFile('foto_karyawan')) {
+            $file = $request->file('foto_karyawan');
+            $filename = time() . '_' . $file->getClientOriginalName();
+            $file->move(public_path('foto_karyawan'), $filename);
+            $karyawan->foto_karyawan = $filename;
+        }
 
-        $karyawan = User::findOrFail($id);
+        // Simpan input dari form ke dalam model karyawan
         $karyawan->divisi_id = $validatedData['divisi_id'];
         $karyawan->nomor_induk = $validatedData['nomor_induk'];
         $karyawan->name = $validatedData['name'];
@@ -316,14 +270,15 @@ class HomeController extends Controller
         $karyawan->alamat_ktp = $validatedData['alamat_ktp'];
         $karyawan->alamat_domisili = $validatedData['alamat_domisili'];
         $karyawan->no_hp = $validatedData['no_hp'];
-        // $karyawan->no_ktp = $validatedData['no_ktp'];
         $karyawan->agama = $validatedData['agama'];
         $karyawan->gol_darah = $validatedData['gol_darah'];
         $karyawan->status_pernikahan = $validatedData['status_pernikahan'];
         $karyawan->status_karyawan = $validatedData['status_karyawan'];
         $karyawan->email = $validatedData['email'];
+        // if (isset($validatedData['password'])) {
+        //     $karyawan->password = Hash::make($validatedData['password']);
+        // }
         $karyawan->type = $validatedData['type'];
-        // $karyawan->foto_karyawan = $nama_file;
         $karyawan->gaji = $validatedData['gaji'];
         $karyawan->uang_makan = $validatedData['uang_makan'];
         $karyawan->uang_transport = $validatedData['uang_transport'];
@@ -331,17 +286,18 @@ class HomeController extends Controller
         $karyawan->akhir_kerja = $validatedData['akhir_kerja'];
         $karyawan->status_ptkp = $validatedData['status_ptkp'];
         $karyawan->cabang = $validatedData['cabang'];
-        // $karyawan->group_karyawan = $validatedData['group_karyawan'];
-        // $karyawan->tempat_bekerja = $validatedData['tempat_bekerja'];
         $karyawan->tunjangan_jabatan = $validatedData['tunjangan_jabatan'];
         $karyawan->tunjangan_pulsa = $validatedData['tunjangan_pulsa'];
         $karyawan->tunjangan_pendidikan = $validatedData['tunjangan_pendidikan'];
         $karyawan->tunjangan_lain = $validatedData['tunjangan_lain'];
-        // $karyawan->kontrak_kerja = $nama_file_kontrak;
+
+        // Simpan perubahan
         $karyawan->save();
-        // dd($user);
-        return redirect()->route('admin.karyawan.home')->with('success', 'Data berhasil diupdate');
+
+        // Redirect ke halaman tertentu dengan pesan sukses
+        return redirect()->route('admin.karyawan.home')->with('success', 'Data karyawan berhasil diperbarui.');
     }
+
 
     public function profileuser()
     {
@@ -365,8 +321,10 @@ class HomeController extends Controller
             'no_hp' => 'required|string|max:15',
             'agama' => 'required|string|in:islam,kristen,hindu,budha',
             'gol_darah' => 'required|string|max:5',
+            'status_pernikahan' => 'required|string|max:225',
             'alamat_domisili' => 'required|string|max:255',
             'foto_karyawan' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
+            'password' => 'nullable|string|min:8', // tambahkan validasi password
         ]);
 
         // Temukan pengguna berdasarkan ID
@@ -380,7 +338,13 @@ class HomeController extends Controller
         $user->no_hp = $request->input('no_hp');
         $user->agama = $request->input('agama');
         $user->gol_darah = $request->input('gol_darah');
+        $user->status_pernikahan = $request->input('status_pernikahan');
         $user->alamat_domisili = $request->input('alamat_domisili');
+
+        // Perbarui password jika ada input password baru
+        if ($request->filled('password')) {
+            $user->password = bcrypt($request->input('password'));
+        }
 
         // Perbarui foto profil jika diunggah
         if ($request->hasFile('foto_karyawan')) {
@@ -450,8 +414,10 @@ class HomeController extends Controller
             'no_hp' => 'required|string|max:15',
             'agama' => 'required|string|in:islam,kristen,hindu,budha',
             'gol_darah' => 'required|string|max:5',
+            'status_pernikahan' => 'required|string|max:255',
             'alamat_domisili' => 'required|string|max:255',
             'foto_karyawan' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
+            'password' => 'nullable|string|min:8', // tambahkan validasi password
         ]);
 
         // Temukan pengguna berdasarkan ID
@@ -465,7 +431,13 @@ class HomeController extends Controller
         $user->no_hp = $request->input('no_hp');
         $user->agama = $request->input('agama');
         $user->gol_darah = $request->input('gol_darah');
+        $user->status_pernikahan = $request->input('status_pernikahan');
         $user->alamat_domisili = $request->input('alamat_domisili');
+
+        // Perbarui password jika ada input password baru
+        if ($request->filled('password')) {
+            $user->password = bcrypt($request->input('password'));
+        }
 
         // Perbarui foto profil jika diunggah
         if ($request->hasFile('foto_karyawan')) {
