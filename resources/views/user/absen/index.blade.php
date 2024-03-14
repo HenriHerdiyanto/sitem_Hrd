@@ -89,7 +89,7 @@
                                     <form action="{{ route('UserAbsen.store') }}" method="post">
                                         @csrf
                                         @method('post')
-                                        <div class="modal-body bg-secondary">
+                                        <div class="modal-body">
                                             <div class="mb-3">
                                                 <label for="" class="text-white">Nama Karyawan</label>
                                                 <input type="hidden" name="user_id" value="{{ $user->id }}">
@@ -100,11 +100,6 @@
                                                 <label for="" class="text-white">Tanggal Sekarang</label>
                                                 <input type="text" name="tanggal" class="form-control"
                                                     value="{{ date('Y-m-d') }}" readonly>
-                                            </div>
-                                            <div class="mb-3">
-                                                <label for="" class="text-white">Waktu Sekarang</label>
-                                                <input type="text" class="form-control" name="waktu_masuk"
-                                                    id="waktu_masuk" readonly>
                                             </div>
                                             <div class="mb-3">
                                                 <input type="hidden" name="terlambat" class="form-control" id="terlambat">
@@ -166,7 +161,7 @@
                                     <form action="{{ route('UserAbsen.update', $lastAbsen->id) }}" method="post">
                                         @csrf
                                         @method('put')
-                                        <div class="modal-body bg-secondary">
+                                        <div class="modal-body">
                                             <div class="mb-3">
                                                 <label for="" class="text-white">Nama Karyawan</label>
                                                 <input type="text" name="name" class="form-control"
@@ -227,7 +222,7 @@
                                 <form action="{{ route('UserAbsen.izin') }}" method="post">
                                     @csrf
                                     @method('post')
-                                    <div class="modal-body bg-secondary">
+                                    <div class="modal-body">
                                         <div class="mb-3">
                                             <label for="" class="text-white">Nama Karyawan</label>
                                             <input type="hidden" name="user_id" value="{{ $user->id }}">
@@ -240,12 +235,16 @@
                                                 value="{{ date('Y-m-d') }}" readonly>
                                         </div>
                                         <div class="mb-3">
-                                            <label for="" class="text-white">Tanggal izin</label>
-                                            <input type="text" name="tanggal_izin" class="form-control">
+                                            <label for="">Tanggal Mulai izin</label>
+                                            <input type="date" name="tanggal_izin" class="form-control" required>
                                         </div>
                                         <div class="mb-3">
-                                            <label for="" class="text-white">Sampai Tanggal</label>
-                                            <input type="text" name="tanggal_akhir" class="form-control">
+                                            <label for="">Sampai Tanggal</label>
+                                            <input type="date" name="tanggal_akhir" class="form-control" required>
+                                        </div>
+                                        <div class="mb-3">
+                                            <label for="">Total IZIN</label>
+                                            <input type="text" name="total_izin" class="form-control" readonly>
                                         </div>
                                         <div class="mb-3">
                                             <label for="" class="text-white">Alasan IZIN</label>
@@ -300,7 +299,7 @@
                             <form action="{{ route('UserAbsen.sakit') }}" method="post">
                                 @csrf
                                 @method('post')
-                                <div class="modal-body bg-secondary">
+                                <div class="modal-body">
                                     <div class="mb-3">
                                         <label for="" class="text-white">Nama Karyawan</label>
                                         <input type="hidden" name="user_id" value="{{ $user->id }}">
@@ -345,6 +344,8 @@
                                                 <th>No</th>
                                                 <th>Nama Karyawan</th>
                                                 <th class="text-center">Tanggal</th>
+                                                <th class="text-center">Tanggal izin</th>
+                                                <th class="text-center">Total Izin</th>
                                                 <th class="text-center">Waktu Masuk</th>
                                                 <th class="text-center">Waktu Keluar</th>
                                                 <!--<th class="text-center">Barcode</th>-->
@@ -360,7 +361,15 @@
                                                     <tr>
                                                         <td>{{ $loop->iteration }}</td>
                                                         <td>{{ $data->name }}</td>
-                                                        <td class="text-center">{{ $data->tanggal }}</td>
+                                                        <td class="text-center">
+                                                            {{ \Carbon\Carbon::createFromFormat('Y-m-d', $data->tanggal)->format('d-m-Y') }}
+                                                        </td>
+                                                        <td class="text-center">
+                                                            {{ \Carbon\Carbon::createFromFormat('Y-m-d', $data->tanggal_izin)->format('d-m-Y') }}
+                                                            <br>
+                                                            {{ \Carbon\Carbon::createFromFormat('Y-m-d', $data->tanggal_akhir)->format('d-m-Y') }}
+                                                        </td>
+                                                        <td class="text-center">{{ $data->total_izin }} Hari</td>
                                                         <td class="text-center">{{ $data->waktu_masuk }}</td>
                                                         <td class="text-center">{{ $data->waktu_keluar }}</td>
                                                         <!--<td class="text-center">{{ $data->barcode }}</td>-->
@@ -396,6 +405,29 @@
             </div>
         </div>
     </div>
+
+    {{-- mencari total izin --}}
+    <script>
+        // Function to calculate total izin
+        function calculateTotalIzin() {
+            // Get the value of tanggal mulai izin and tanggal akhir izin input fields
+            const tanggalMulaiIzin = new Date(document.getElementsByName('tanggal_izin')[0].value);
+            const tanggalAkhirIzin = new Date(document.getElementsByName('tanggal_akhir')[0].value);
+
+            // Calculate the difference in days between the two dates
+            const differenceInTime = tanggalAkhirIzin.getTime() - tanggalMulaiIzin.getTime();
+            const differenceInDays = differenceInTime / (1000 * 3600 * 24);
+
+            // Set the value of total izin input field to the difference in days
+            document.getElementsByName('total_izin')[0].value = differenceInDays;
+        }
+
+        // Call the calculateTotalIzin function whenever the input fields for tanggal mulai izin or tanggal akhir izin change
+        document.getElementsByName('tanggal_izin')[0].addEventListener('change', calculateTotalIzin);
+        document.getElementsByName('tanggal_akhir')[0].addEventListener('change', calculateTotalIzin);
+    </script>
+
+
     <script>
         function updateTerlambatStatus() {
             const currentTime = new Date();

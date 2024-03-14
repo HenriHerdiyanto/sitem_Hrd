@@ -102,14 +102,6 @@
                                                     value="{{ date('Y-m-d') }}" readonly>
                                             </div>
                                             <div class="mb-3">
-                                                <label for="" class="text-white">Tanggal izin</label>
-                                                <input type="text" name="tanggal_izin" class="form-control">
-                                            </div>
-                                            <div class="mb-3">
-                                                <label for="" class="text-white">Sampai Tanggal</label>
-                                                <input type="text" name="tanggal_akhir" class="form-control">
-                                            </div>
-                                            <div class="mb-3">
                                                 <input type="hidden" name="terlambat" class="form-control" id="terlambat">
                                             </div>
                                             <div class="mb-3">

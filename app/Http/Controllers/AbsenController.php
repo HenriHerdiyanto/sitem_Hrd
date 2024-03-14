@@ -196,6 +196,9 @@ class AbsenController extends Controller
             "user_id" => "required",
             "name" => "required",
             "tanggal" => "required",
+            "tanggal_izin" => "required",
+            "tanggal_akhir" => "required",
+            "total_izin" => "required",
             "izin" => "required",
             "keterangan" => "required",
         ]);
@@ -204,6 +207,9 @@ class AbsenController extends Controller
         $absen->user_id = $validateData['user_id'];
         $absen->name = $validateData['name'];
         $absen->tanggal = $validateData['tanggal'];
+        $absen->tanggal_izin = $validateData['tanggal_izin'];
+        $absen->tanggal_akhir = $validateData['tanggal_akhir'];
+        $absen->total_izin = $validateData['total_izin'];
         $absen->izin = $validateData['izin'];
         $absen->keterangan = $validateData['keterangan'];
         $absen->save();
