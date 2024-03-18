@@ -316,12 +316,14 @@ class HomeController extends Controller
             'divisi_id' => 'required',
             'name' => 'required|string|max:255',
             'email' => 'required|string|email|max:255',
-            'tanggal_lahir' => 'required|date',
             'jenis_kelamin' => 'required|string|in:laki-laki,perempuan',
+            'tempat_lahir' => 'required|string|max:225',
+            'tanggal_lahir' => 'required|date',
             'no_hp' => 'required|string|max:15',
             'agama' => 'required|string|in:islam,kristen,hindu,budha',
             'gol_darah' => 'required|string|max:5',
             'status_pernikahan' => 'required|string|max:225',
+            'alamat_ktp' => 'required|string|max:255',
             'alamat_domisili' => 'required|string|max:255',
             'foto_karyawan' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
             'password' => 'nullable|string|min:8', // tambahkan validasi password
@@ -333,12 +335,14 @@ class HomeController extends Controller
         // Perbarui data pengguna
         $user->name = $request->input('name');
         $user->email = $request->input('email');
-        $user->tanggal_lahir = $request->input('tanggal_lahir');
         $user->jenis_kelamin = $request->input('jenis_kelamin');
+        $user->tanggal_lahir = $request->input('tanggal_lahir');
+        $user->tempat_lahir = $request->input('tempat_lahir');
         $user->no_hp = $request->input('no_hp');
         $user->agama = $request->input('agama');
         $user->gol_darah = $request->input('gol_darah');
         $user->status_pernikahan = $request->input('status_pernikahan');
+        $user->alamat_ktp = $request->input('alamat_ktp');
         $user->alamat_domisili = $request->input('alamat_domisili');
 
         // Perbarui password jika ada input password baru
@@ -409,12 +413,14 @@ class HomeController extends Controller
             'divisi_id' => 'required',
             'name' => 'required|string|max:255',
             'email' => 'required|string|email|max:255',
-            'tanggal_lahir' => 'required|date',
             'jenis_kelamin' => 'required|string|in:laki-laki,perempuan',
+            'tempat_lahir' => 'required|max:255',
+            'tanggal_lahir' => 'required|date',
             'no_hp' => 'required|string|max:15',
             'agama' => 'required|string|in:islam,kristen,hindu,budha',
             'gol_darah' => 'required|string|max:5',
             'status_pernikahan' => 'required|string|max:255',
+            'alamat_ktp' => 'required|string|max:255',
             'alamat_domisili' => 'required|string|max:255',
             'foto_karyawan' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
             'password' => 'nullable|string|min:8', // tambahkan validasi password
@@ -426,12 +432,14 @@ class HomeController extends Controller
         // Perbarui data pengguna
         $user->name = $request->input('name');
         $user->email = $request->input('email');
-        $user->tanggal_lahir = $request->input('tanggal_lahir');
         $user->jenis_kelamin = $request->input('jenis_kelamin');
+        $user->tanggal_lahir = $request->input('tanggal_lahir');
+        $user->tempat_lahir = $request->input('tempat_lahir');
         $user->no_hp = $request->input('no_hp');
         $user->agama = $request->input('agama');
         $user->gol_darah = $request->input('gol_darah');
         $user->status_pernikahan = $request->input('status_pernikahan');
+        $user->alamat_ktp = $request->input('alamat_ktp');
         $user->alamat_domisili = $request->input('alamat_domisili');
 
         // Perbarui password jika ada input password baru

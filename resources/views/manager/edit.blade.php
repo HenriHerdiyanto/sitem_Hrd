@@ -22,7 +22,8 @@
                                         <div class="col-md-6">
                                             <div class="mb-3">
                                                 <label for="divisi" class="form-label">Divisi</label>
-                                                <select name="divisi_id" id="divisi_id" class="form-control" required @if ($divisis->isEmpty()) disabled @endif>
+                                                <select name="divisi_id" id="divisi_id" class="form-control" required
+                                                    @if ($divisis->isEmpty()) disabled @endif>
                                                     @if ($divisis->isEmpty())
                                                         <option value="">DIVISI ANDA TELAH DIHAPUS</option>
                                                     @else
@@ -47,15 +48,8 @@
                                             </div>
                                             <div class="mb-3">
                                                 <label for="jenis_kelamin" class="form-label">Gender</label>
-                                                <select class="form-control" id="jenis_kelamin" name="jenis_kelamin"
-                                                    @readonly(true)>
-                                                    <option value="laki-laki"
-                                                        {{ $user->jenis_kelamin == 'laki-laki' ? 'selected' : '' }}>
-                                                        Laki-laki</option>
-                                                    <option value="perempuan"
-                                                        {{ $user->jenis_kelamin == 'perempuan' ? 'selected' : '' }}>
-                                                        Perempuan</option>
-                                                </select>
+                                                <input type="text" class="form-control" name="jenis_kelamin"
+                                                    value="{{ $user->jenis_kelamin }}" readonly>
                                             </div>
                                             <div class="mb-3">
                                                 <label for="tempat_lahir" class="form-label">Tempat Lahir</label>
@@ -84,74 +78,28 @@
                                                 <input type="text" class="form-control" id="no_hp"
                                                     value="{{ $user->no_hp }}" name="no_hp" @readonly(true)>
                                             </div>
-                                            <div class="mb-3">
-                                                <label for="no_ktp" class="form-label">Nomor KTP</label>
-                                                <input type="text" class="form-control" id="no_ktp"
-                                                    value="{{ $user->no_ktp }}" name="no_ktp" @readonly(true)>
-                                            </div>
-                                            <div class="mb-3">
-                                                <label for="agama" class="form-label">Agama</label>
-                                                <select class="form-control" id="agama" name="agama"
-                                                    @readonly(true)>
-                                                    <option value="islam"
-                                                        {{ $user->agama == 'islam' ? 'selected' : '' }}>
-                                                        islam</option>
-                                                    <option value="kristen"
-                                                        {{ $user->agama == 'kristen' ? 'selected' : '' }}>
-                                                        kristen</option>
-                                                    <option value="hindu"
-                                                        {{ $user->agama == 'hindu' ? 'selected' : '' }}>
-                                                        hindu</option>
-                                                    <option value="budha"
-                                                        {{ $user->agama == 'budha' ? 'selected' : '' }}>
-                                                        budha</option>
-                                                </select>
-                                            </div>
-                                            <div class="mb-3">
-                                                <label for="gol_darah" class="form-label">Gol Darah</label>
-                                                <select class="form-control" id="gol_darah" name="gol_darah"
-                                                    @readonly(true)>
-                                                    <option value="o"
-                                                        {{ $user->gol_darah == 'o' ? 'selected' : '' }}>
-                                                        o</option>
-                                                    <option value="a"
-                                                        {{ $user->gol_darah == 'a' ? 'selected' : '' }}>
-                                                        a</option>
-                                                    <option value="b"
-                                                        {{ $user->gol_darah == 'b' ? 'selected' : '' }}>
-                                                        b</option>
-                                                    <option value="ab"
-                                                        {{ $user->gol_darah == 'ab' ? 'selected' : '' }}>
-                                                        ab</option>
-                                                </select>
-                                            </div>
                                         </div>
                                         <div class="col-md-6">
                                             <div class="mb-3">
-                                                <label for="status_pernikahan" class="form-label">Status
-                                                    Pernikahan</label>
-                                                <select class="form-control" id="status_pernikahan"
-                                                    name="status_pernikahan" @readonly(true)>
-                                                    <option value="Menikah"
-                                                        {{ $user->status_pernikahan == 'Menikah' ? 'selected' : '' }}>
-                                                        Menikah</option>
-                                                    <option value="Belum Menikah"
-                                                        {{ $user->status_pernikahan == 'Belum Menikah' ? 'selected' : '' }}>
-                                                        Belum Menikah</option>
-                                                </select>
+                                                <label for="agama" class="form-label">Agama</label>
+                                                <input type="text" class="form-control" name="agama"
+                                                    value="{{ $user->agama }}" readonly>
                                             </div>
                                             <div class="mb-3">
-                                                <label for="status_karyawan" class="form-label">Status
-                                                    karyawan</label>
-                                                <select class="form-control" id="status_karyawan" name="status_karyawan"
-                                                    @readonly(true)>
-                                                    <option value="aktif"
-                                                        {{ $user->status_karyawan == 'aktif' ? 'selected' : '' }}>
-                                                        aktif</option>
-                                                    <option value="nonaktif"
-                                                        {{ $user->status_karyawan == 'nonaktif' ? 'selected' : '' }}>
-                                                        nonaktif</option>
-                                                </select>
+                                                <label for="gol_darah" class="form-label">Gol Darah</label>
+                                                <input type="text" class="form-control" name="gol_darah"
+                                                    value="{{ $user->gol_darah }}" readonly>
+                                            </div>
+                                            <div class="mb-3">
+                                                <label for="status_pernikahan" class="form-label">Status
+                                                    Pernikahan</label>
+                                                <input type="text" class="form-control" name="status_pernikahan"
+                                                    value="{{ $user->status_pernikahan }}" readonly>
+                                            </div>
+                                            <div class="mb-3">
+                                                <label for="status_karyawan" class="form-label">Status karyawan</label>
+                                                <input type="text" class="form-control" name="status_karyawan"
+                                                    value="{{ $user->status_karyawan }}" readonly>
                                             </div>
                                             <div class="mb-3">
                                                 <label for="email" class="form-label">Email</label>
@@ -181,9 +129,7 @@
                                             <div class="mb-3">
                                                 <label for="foto_karyawan" class="form-label">Foto karyawan</label><br>
                                                 @if ($user->foto_karyawan == null)
-                                                    <input type="file" class="form-control" id="foto_karyawan"
-                                                        value="{{ $user->foto_karyawan }}" name="foto_karyawan"
-                                                        @readonly(true)>
+                                                    <h4><span class="badge bg-warning">Foto Belum Diupdate</span></h4>
                                                 @else
                                                     <img class="img-fluid" style="width: 100px;"
                                                         src="{{ asset('foto_karyawan/' . $user->foto_karyawan) }}"
@@ -194,19 +140,19 @@
                                                 @endif
                                             </div>
                                             <div class="mb-3">
-                                                <label for="gaji" class="form-label">Gaji Karyawan</label>
-                                                <input type="text" class="form-control" id="gaji"
+                                                <!--<label for="gaji" class="form-label">Gaji Karyawan</label>-->
+                                                <input type="hidden" class="form-control" id="gaji"
                                                     value="{{ $user->gaji }}" name="gaji" @readonly(true)>
                                             </div>
                                             <div class="mb-3">
-                                                <label for="uang_makan" class="form-label">Uang Makan Karyawan</label>
-                                                <input type="text" class="form-control" id="uang_makan"
+                                                <!--<label for="uang_makan" class="form-label">Uang Makan Karyawan</label>-->
+                                                <input type="hidden" class="form-control" id="uang_makan"
                                                     value="{{ $user->uang_makan }}" name="uang_makan" @readonly(true)>
                                             </div>
                                             <div class="mb-3">
-                                                <label for="uang_transport" class="form-label">Uang Transport
-                                                    Karyawan</label>
-                                                <input type="text" class="form-control" id="uang_transport"
+                                                <!--<label for="uang_transport" class="form-label">Uang Transport-->
+                                                <!--    Karyawan</label>-->
+                                                <input type="hidden" class="form-control" id="uang_transport"
                                                     value="{{ $user->uang_transport }}" name="uang_transport"
                                                     @readonly(true)>
                                             </div>
@@ -225,17 +171,22 @@
                                             <div class="mb-3">
                                                 <label for="kontrak_kerja" class="form-label">Kontrak Kerja</label><br>
                                                 <div class="row">
-                                                    <div class="col-8">
-                                                        <input type="file" class="form-control" id="kontrak_kerja"
-                                                            name="kontrak_kerja" @readonly(true)>
-                                                    </div>
-                                                    <div class="col-4">
-                                                        @if ($user->kontrak_kerja)
+                                                    @if ($user->kontrak_kerja)
+                                                        <div class="col-8">
+                                                            <input type="file" class="form-control" id="kontrak_kerja"
+                                                                name="kontrak_kerja" @readonly(true)>
+                                                        </div>
+                                                        <div class="col-4">
                                                             <a href="{{ asset('kontrak_kerja/' . $user->kontrak_kerja) }}"
                                                                 class="btn btn-primary w-100" target="_blank">Lihat
                                                                 File</a>
-                                                        @endif
-                                                    </div>
+                                                        </div>
+                                                    @else
+                                                        <div class="col-8">
+                                                            <h4><span class="badge bg-warning">Kontrak Belum
+                                                                    Diupdate</span></h4>
+                                                        </div>
+                                                    @endif
                                                 </div>
 
                                             </div>

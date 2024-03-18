@@ -102,6 +102,11 @@
                                                     value="{{ date('Y-m-d') }}" readonly>
                                             </div>
                                             <div class="mb-3">
+                                                <label for="">Waktu Masuk</label>
+                                                <input type="text" name="waktu_masuk" id=waktu_masuk class="form-control"
+                                                    readonly value="{{ date('H:i:s') }}">
+                                            </div>
+                                            <div class="mb-3">
                                                 <input type="hidden" name="terlambat" class="form-control" id="terlambat">
                                             </div>
                                             <div class="mb-3">
@@ -109,7 +114,6 @@
                                                 <input type="text" name="barcode" class="form-control" readonly
                                                     id="barcode">
                                             </div>
-
                                         </div>
                                         <!-- Modal Footer -->
                                         <div class="modal-footer">
@@ -431,9 +435,12 @@
         function updateTerlambatStatus() {
             const currentTime = new Date();
             const hours = currentTime.getHours();
-            const thresholdHour = 8; // Jam 08:00
+            const minutes = currentTime.getMinutes();
+            const thresholdHour = 8;
+            const thresholdMinute = 40;
 
-            if (hours >= thresholdHour) {
+            // Memeriksa apakah waktu saat ini setelah jam 08:40
+            if (hours > thresholdHour || (hours === thresholdHour && minutes >= thresholdMinute)) {
                 document.getElementById('terlambat').value = 1;
             } else {
                 document.getElementById('terlambat').value = 0;
@@ -444,6 +451,7 @@
         updateTerlambatStatus();
         setInterval(updateTerlambatStatus, 1000); // Jika ingin memperbarui setiap detik
     </script>
+
 
 
     <script>

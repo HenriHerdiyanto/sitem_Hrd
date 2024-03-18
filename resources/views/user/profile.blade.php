@@ -90,6 +90,13 @@
                                             <div class="row mt-3">
                                                 <div class="col-md-4">
                                                     <div class="form-group form-group-default">
+                                                        <label>Tempat Lahir</label>
+                                                        <input type="text" class="form-control" id="tempat_lahir"
+                                                            name="tempat_lahir" value="{{ $user->tempat_lahir }}" required>
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-4">
+                                                    <div class="form-group form-group-default">
                                                         <label>Tanggal Lahir</label>
                                                         <input type="date" class="form-control" id="tanggal_lahir"
                                                             name="tanggal_lahir" value="{{ $user->tanggal_lahir }}"
@@ -99,8 +106,8 @@
                                                 <div class="col-md-4">
                                                     <div class="form-group form-group-default">
                                                         <label>Gender</label>
-                                                        <select class="form-control" id="jenis_kelamin" name="jenis_kelamin"
-                                                            required>
+                                                        <select class="form-control" id="jenis_kelamin"
+                                                            name="jenis_kelamin" required>
                                                             <option selected value="{{ $user->jenis_kelamin }}">
                                                                 {{ $user->jenis_kelamin }}</option>
                                                             <option value="laki-laki">Laki-laki</option>
@@ -140,6 +147,14 @@
                                                         <input type="text" class="form-control"
                                                             value="{{ $user->gol_darah }}" name="gol_darah"
                                                             placeholder="gol_darah" required>
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-4">
+                                                    <div class="form-group form-group-default">
+                                                        <label>Alamat KTP</label>
+                                                        <input type="text" class="form-control"
+                                                            value="{{ $user->alamat_ktp }}" name="alamat_ktp"
+                                                            placeholder="Masukan alamat sesuai KTP" required>
                                                     </div>
                                                 </div>
                                                 <div class="col-md-4">
