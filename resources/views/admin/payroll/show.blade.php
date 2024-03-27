@@ -324,7 +324,7 @@
                                             </div>
                                             <div class="mb-3">
                                                 <label for="terlambat" class="form-label">Terlambat
-                                                    ( {{ $tterlambat }} )</label>
+                                                    (Anda {{ $tterlambat }} X Terlambat)</label>
                                                 <input type="text" class="form-control nilai-input4"
                                                     value="{{ $totalterlambat }}" name="terlambat" required readonly>
                                             </div>
@@ -341,7 +341,7 @@
                                             </div>
                                             <div class="mb-3">
                                                 <label for="izin" class="form-label">IZIN
-                                                    ( {{ $total_izin }} )</label>
+                                                    (Anda {{ $total_izin }} X IZIN)</label>
                                                 <input type="text" class="form-control nilai-input4" name="izin"
                                                     value="{{ $totalizin }}" required readonly>
                                             </div>
@@ -353,7 +353,8 @@
                                             </div>
                                             <div class="mb-3">
                                                 <label for="alpha" class="form-label">Potongan Alpha
-                                                    (Anda {{ $jumlah_alpha }} X Alpha)</label>
+                                                    (Anda {{ $jumlah_alpha }} X Alpha) (Hadir Sebanyak
+                                                    {{ $jumlah_hadir }} X)</label>
                                                 <input type="text" class="form-control" id="alpha" required
                                                     readonly>
                                             </div>

@@ -231,7 +231,7 @@ class PayrollController extends Controller
         $jumlah_hadir = $absen->count();
         $total_izin_sakit = $total_izin + $total_sakit;
         $jumlah_alpha = 22 - $jumlah_hadir - $total_izin_sakit;
-        // dd($jumlah_alpha);
+        // dd($jumlah_hadir);
         // Mencari history bayar
         $historyBayar = HistoryBayar::find($id);
         $jmlhBayar = 0;

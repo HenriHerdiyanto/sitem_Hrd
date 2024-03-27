@@ -35,7 +35,9 @@
                                                         <tr>
                                                             <td>{{ $loop->iteration }}</td>
                                                             <td>{{ $user->name }}</td>
-                                                            <td>{{ $user->tanggal }}</td>
+                                                            <td>{{ \Carbon\Carbon::parse($user->tanggal)->format('d-m-Y') }}
+                                                            </td>
+
                                                             <td class="text-center">
                                                                 <a class="btn btn-sm btn-warning"
                                                                     href="{{ route('payroll.show', ['id' => $user->user_id, 'bulan' => $bulan, 'tahun' => $tahun]) }}">PAYROLL</a>

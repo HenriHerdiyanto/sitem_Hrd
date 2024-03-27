@@ -84,7 +84,7 @@
                                                 <tr>
                                                     <td>{{ $loop->iteration }}</td>
                                                     <td>{{ $absen->name }}</td>
-                                                    <td>{{ $absen->tanggal }}</td>
+                                                    <td>{{ \Carbon\Carbon::parse($absen->tanggal)->format('d-m-Y') }}</td>
                                                     <td>{{ $absen->waktu_masuk }}</td>
                                                     <td>{{ $absen->waktu_keluar }}</td>
                                                     <td>{{ $absen->barcode }}</td>
