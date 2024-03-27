@@ -106,40 +106,62 @@
                                                             <input type="text" class="form-control"
                                                                 value="{{ $data->nama_ayah }}" readonly>
                                                         </div>
-                                                    </div>
-                                                    <div class="col-md-6">
                                                         <div class="form-group form-group-default">
                                                             <label>TANGGAL LAHIR AYAH</label>
                                                             <input type="email" class="form-control"
                                                                 value="{{ $data->tl_ayah }}" readonly>
                                                         </div>
-                                                    </div>
-                                                    <div class="col-md-6">
                                                         <div class="form-group form-group-default">
                                                             <label>PENDIDIKAN AYAH</label>
                                                             <input type="text" class="form-control"
                                                                 value="{{ $data->pendidikan_ayah }}" readonly>
                                                         </div>
-                                                    </div>
-                                                    <div class="col-md-6">
                                                         <div class="form-group form-group-default">
                                                             <label>PEKERJAAN AYAH</label>
                                                             <input type="text" class="form-control"
                                                                 value="{{ $data->pekerjaan_ayah }}" readonly>
                                                         </div>
-                                                    </div>
-                                                    <div class="col-md-6">
                                                         <div class="form-group form-group-default">
                                                             <label>JABATAN AYAH</label>
                                                             <input type="text" class="form-control"
                                                                 value="{{ $data->jabatan_ayah }}" readonly>
                                                         </div>
-                                                    </div>
-                                                    <div class="col-md-6">
                                                         <div class="form-group form-group-default">
                                                             <label>PERUSAHAAN AYAH</label>
                                                             <input type="text" class="form-control"
                                                                 value="{{ $data->perusahaan_ayah }}" readonly>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-md-6">
+                                                        <div class="form-group form-group-default">
+                                                            <label>NAMA IBU</label>
+                                                            <input type="text" class="form-control"
+                                                                value="{{ $data->nama_ibu }}" readonly>
+                                                        </div>
+                                                        <div class="form-group form-group-default">
+                                                            <label>TANGGAL LAHIR IBU</label>
+                                                            <input type="email" class="form-control"
+                                                                value="{{ $data->tl_ibu }}" readonly>
+                                                        </div>
+                                                        <div class="form-group form-group-default">
+                                                            <label>PENDIDIKAN IBU</label>
+                                                            <input type="text" class="form-control"
+                                                                value="{{ $data->pendidikan_ibu }}" readonly>
+                                                        </div>
+                                                        <div class="form-group form-group-default">
+                                                            <label>PEKERJAAN IBU</label>
+                                                            <input type="text" class="form-control"
+                                                                value="{{ $data->pekerjaan_ibu }}" readonly>
+                                                        </div>
+                                                        <div class="form-group form-group-default">
+                                                            <label>JABATAN IBU</label>
+                                                            <input type="text" class="form-control"
+                                                                value="{{ $data->jabatan_ibu }}" readonly>
+                                                        </div>
+                                                        <div class="form-group form-group-default">
+                                                            <label>PERUSAHAAN IBU</label>
+                                                            <input type="text" class="form-control"
+                                                                value="{{ $data->perusahaan_ibu }}" readonly>
                                                         </div>
                                                     </div>
                                                 </div>

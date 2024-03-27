@@ -4,11 +4,13 @@
     // Alamat IP testing (cikarang) 103.152.238.148
     // $allowedIP = '103.152.238.148';
 
+    $allowedIP = '127.0.0.1';
+
     // Alamat IP yang diizinkan (PIK)
     // $allowedIP = '103.152.238.148';
 
     // Alamat IP yang diizinkan (CGK)
-    $allowedIP = '202.93.114.18';
+    // $allowedIP = '202.93.114.18';
 
     // Mendapatkan alamat IP pengunjung
     $clientIP = $_SERVER['REMOTE_ADDR'];
@@ -336,7 +338,7 @@
                                 <div class="row">
                                     <div class="col-8 col-sm-8">
                                         {{ __('Data Absen') }}
-                                        {{-- IP Sekarang : {{ $clientIP }} --}}
+                                        IP Sekarang : {{ $clientIP }}
                                     </div>
                                 </div>
                             </div>
@@ -366,12 +368,12 @@
                                                         <td>{{ $loop->iteration }}</td>
                                                         <td>{{ $data->name }}</td>
                                                         <td class="text-center">
-                                                            {{ \Carbon\Carbon::createFromFormat('Y-m-d', $data->tanggal)->format('d-m-Y') }}
+                                                            {{ $data->tanggal }}
                                                         </td>
                                                         <td class="text-center">
-                                                            {{ \Carbon\Carbon::createFromFormat('Y-m-d', $data->tanggal_izin)->format('d-m-Y') }}
+                                                            {{ $data->tanggal_izin }}
                                                             <br>
-                                                            {{ \Carbon\Carbon::createFromFormat('Y-m-d', $data->tanggal_akhir)->format('d-m-Y') }}
+                                                            {{ $data->tanggal_akhir }}
                                                         </td>
                                                         <td class="text-center">{{ $data->total_izin }} Hari</td>
                                                         <td class="text-center">{{ $data->waktu_masuk }}</td>

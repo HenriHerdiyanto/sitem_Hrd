@@ -312,7 +312,7 @@
                                     <div class="tab-pane fade" id="pills-profile-icon" role="tabpanel"
                                         aria-labelledby="pills-profile-tab-icon">
                                         @if ($pendidikans->isEmpty())
-                                            <form action="{{ route('user.pendidikan.store') }}" method="post">
+                                            <form action="{{ route('manager.pendidikan.store') }}" method="post">
                                                 @csrf
                                                 @method('post')
                                                 <div class="row mt-3">
@@ -330,7 +330,7 @@
                                                                 name="instansi_pendidikan">
                                                         </div>
                                                         <div class="form-group form-group-default">
-                                                            <label>Jenjang Pendidikan</label>
+                                                            <label>Jenjang Pendidikan Terakhir</label>
                                                             <select name="jenjang_pendidikan" class="form-control">
                                                                 <option selected>-- PILIH --</option>
                                                                 <option value="SARJANA">SARJANA</option>
@@ -434,7 +434,7 @@
                                     <div class="tab-pane fade" id="pills-contact-icon" role="tabpanel"
                                         aria-labelledby="pills-contact-tab-icon">
                                         @if ($keluargas->isEmpty())
-                                            <form action="{{ route('user.keluarga.store') }}" method="post">
+                                            <form action="{{ route('manager.keluarga.store') }}" method="post">
                                                 @csrf
                                                 <div class="row mt-3">
                                                     <div class="col-md-6">
@@ -524,7 +524,7 @@
                                             </form>
                                         @else
                                             @foreach ($keluargas as $data)
-                                                <form action="{{ route('user.keluarga.update', $data->id) }}"
+                                                <form action="{{ route('manager.keluarga.update', $data->id) }}"
                                                     method="post">
                                                     @csrf
                                                     @method('put')

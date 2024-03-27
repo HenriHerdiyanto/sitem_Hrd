@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Absen;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 
 class AbsenController extends Controller
 {
@@ -106,11 +107,33 @@ class AbsenController extends Controller
 
     // admin====================================================================================================================
 
+
+
     public function Adminindex()
     {
-        $absen = Absen::all();
-        return view("admin.absen.index", compact("absen"));
+        $latest_absen_per_user = DB::table('absens')
+            ->select('user_id', DB::raw('MAX(tanggal) as max_date'))
+            ->groupBy('user_id', DB::raw('MONTH(tanggal)'), DB::raw('YEAR(tanggal)'))
+            ->get();
+
+        $latest_absen_ids = [];
+        foreach ($latest_absen_per_user as $latest_absen) {
+            $latest_absen_id = DB::table('absens')
+                ->select('id')
+                ->where('user_id', $latest_absen->user_id)
+                ->whereDate('tanggal', $latest_absen->max_date)
+                ->first();
+
+            if ($latest_absen_id) {
+                $latest_absen_ids[] = $latest_absen_id->id;
+            }
+        }
+
+        $absen = Absen::whereIn('id', $latest_absen_ids)->get();
+
+        return view("admin.absen.index2", compact("absen"));
     }
+
 
 
     public function Adminshow(Request $request)

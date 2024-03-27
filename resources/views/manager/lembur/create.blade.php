@@ -28,11 +28,11 @@
                                                 </div>
                                                 <div class="form-group">
                                                     <!--indry minta perubahan nama project di ubah menjadi nama divisi tapi saya ubah nama projek doang tidak mengubah database-->
-                                                    <!--<label for="largeInput">Nama Project Yang Dilakukan</label>-->
-                                                    <!--<input type="text" class="form-control" name="nama_project">-->
-                                                    <label for="largeInput">Nama Divisi</label>
+                                                    <label for="largeInput">Nama Project Yang Dilakukan</label>
+                                                    <input type="text" class="form-control" name="nama_project">
+                                                    {{-- <label for="largeInput">Nama Divisi</label>
                                                     <input type="text" name="nama_project" class="form-control "
-                                                        value="{{ $user->divisi->nama_divisi }}" readonly>
+                                                        value="{{ $user->divisi->nama_divisi }}" readonly> --}}
                                                 </div>
                                                 <div class="form-group">
                                                     <label for="largeInput">Tanggal</label>
@@ -57,7 +57,7 @@
                                                 <div class="form-group">
                                                     <label for="total_lembur">Total Jam Lembur / JAM</label>
                                                     <input type="text" class="form-control" id="total_lembur"
-                                                        name="total_lembur" required step="1">
+                                                        name="total_lembur" required step="1" readonly>
                                                     <input type="hidden" class="form-control" id="status" name="status"
                                                         value="diproses">
                                                 </div>

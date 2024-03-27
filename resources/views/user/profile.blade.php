@@ -330,7 +330,7 @@
                                                                 name="instansi_pendidikan">
                                                         </div>
                                                         <div class="form-group form-group-default">
-                                                            <label>Jenjang Pendidikan</label>
+                                                            <label>Jenjang Pendidikan Terakhir</label>
                                                             <select name="jenjang_pendidikan" class="form-control">
                                                                 <option selected>-- PILIH --</option>
                                                                 <option value="SARJANA">SARJANA</option>
