@@ -24,6 +24,7 @@
                                             <tr>
                                                 <th>No</th>
                                                 <th>Nama Karyawan</th>
+                                                <th>Nama Divisi</th>
                                                 <th>Nama Project</th>
                                                 <th>Tanggal</th>
                                                 <th class="text-center">Total Lembur</th>
@@ -36,6 +37,14 @@
                                                 <tr>
                                                     <td>{{ $loop->iteration }}</td>
                                                     <td>{{ $data->user->name }}</td>
+                                                    <td>
+                                                        @if ($data->user->divisi)
+                                                            {{ $data->user->divisi->nama_divisi }}
+                                                        @else
+                                                            {{-- Handle jika divisi tidak ditemukan --}}
+                                                            Divisi Tidak Ditemukan
+                                                        @endif
+                                                    </td>
                                                     <td>{{ $data->nama_project }}</td>
                                                     <td>{{ $data->tanggal }}</td>
                                                     <td class="text-center">{{ $data->total_lembur }} JAM</td>

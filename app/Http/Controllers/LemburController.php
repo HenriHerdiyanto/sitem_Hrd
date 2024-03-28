@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Divisi;
 use Illuminate\Support\Facades\View;
 use App\Models\Evaluasi;
 use App\Models\User;
@@ -11,6 +12,7 @@ use App\Models\Budget;
 use App\Models\Pinjaman;
 use App\Models\Lembur;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class LemburController extends Controller
 {
@@ -202,8 +204,10 @@ class LemburController extends Controller
 
     public function Adminindex()
     {
+        $divisi = Divisi::all();
+        $user = User::find(Auth::user()->id);
         $lemburs = Lembur::all();
-        return view("admin.lembur.index", compact("lemburs"));
+        return view("admin.lembur.index", compact("lemburs", "user"));
     }
 
     public function Admindestroy($id)

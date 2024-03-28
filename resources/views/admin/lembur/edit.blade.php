@@ -27,8 +27,8 @@
                                                         value="{{ $lembur->user->name }}" readonly>
                                                 </div>
                                                 <div class="form-group">
-                                                    <!--<label for="largeInput">Nama Project Yang Dilakukan</label>-->
-                                                    <label for="largeInput">Nama Divisi</label>
+                                                    <label for="largeInput">Nama Project Yang Dilakukan</label>
+                                                    {{-- <label for="largeInput">Nama Divisi</label> --}}
                                                     <input type="text" class="form-control" name="nama_project"
                                                         value="{{ $lembur->nama_project }}" readonly>
                                                 </div>

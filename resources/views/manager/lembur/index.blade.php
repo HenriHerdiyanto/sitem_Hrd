@@ -24,7 +24,7 @@
                                             <tr>
                                                 <th>No</th>
                                                 <th>Nama Karyawan</th>
-                                                <th>Nama Divisi</th>
+                                                <th>Project yang dilakukan</th>
                                                 <th>Tanggal</th>
                                                 <th class="text-center">Total Lembur</th>
                                                 <th>Status</th>

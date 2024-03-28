@@ -64,7 +64,8 @@
                                                 <div class="form-group">
                                                     <label for="total_lembur">Total Jam Lembur / JAM</label>
                                                     <input type="number" class="form-control" id="total_lembur"
-                                                        value="{{ $lembur->total_lembur }}" name="total_lembur" required>
+                                                        value="{{ $lembur->total_lembur }}" name="total_lembur" required
+                                                        readonly>
                                                     <input type="hidden" class="form-control" id="status" name="status"
                                                         value="diproses">
                                                 </div>
